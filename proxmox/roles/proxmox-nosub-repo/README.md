@@ -1,7 +1,7 @@
 proxmox-nosub-repo
 =========
 
-Created to automate the configuration of NFS storage on ProxMox in my homelab.
+Created to automate the configuration of non-subscription repositories on ProxMox in my homelab.
 
 Requirements
 ------------
@@ -20,10 +20,12 @@ In your playbook, you should specify a vars_files:
 ```
 This vars_files can be formated as this. Change the name of the packages, their state, and quantity in the array, based on your needs.
 ```
-pve_enterprise_repo: 
-ceph_enterprise_repo: 
-pve_nosub_repo: 
-ceph_nosub_repo: 
+disable_repository:
+  - repo: deb https://enterprise.proxmox.com/debian/ceph-squid bookworm enterprise
+  - repo: deb https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise
+enable_repository:
+  - repo: deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+  - repo: deb http://download.proxmox.com/debian/ceph-quincy bookworm no-subscription
 ```
 Dependencies
 ------------

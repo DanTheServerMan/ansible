@@ -3,7 +3,7 @@ proxmox-nfs
 
 Created to automate the configuration of NFS storage on ProxMox in my homelab.
 
-While you can use blockinfile to directly manager /etv/pve/storage.cfg, in my experience this started to have issues when having multiple datastores. Plus, I wanted to see what using the API would look like.
+While you can use blockinfile to directly manage /etv/pve/storage.cfg, in my experience, this started to have issues when having multiple datastores. Plus, I wanted to see what using the API would look like. So, you will have to handle credentials to use this module. See below.
 
 Requirements
 ------------
@@ -15,10 +15,15 @@ This role was developed targeting PVE 8.4.
 Role Variables
 --------------
  
-You need to define two variables for logging in somewhere secure. I recommend and use ansible-vault The variables you need to define is:
+You need to define two variables for logging in. I recommend and use ansible-vault. The variables you need to define is:
 ```
 username: [YOUR_USER]@[DOMAIN]
 password: "[YOUR PASSWORD]"
+```
+An example would be:
+```
+username: root@pam
+password: "password"
 ```
 In your playbook, you should specify a vars_files:
 ```

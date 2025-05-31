@@ -1,26 +1,18 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# tasks file for motd
-- name: Removing the license-only repository on {{ inventory_hostname }}
+# tasks file for proxmox-nosub-repo
+
+- name: Disabling the repository 
   apt_repository:
-    repo: '{{ pve_enterprise_repo }}'
+    repo: '{{ item.repo }}'
     state: absent
     update_cache: false
+  loop: "{{ disable_repository }}"
 
-- name: Removing the license-only Ceph repository on {{ inventory_hostname }}
+- name: Enable the repository 
   apt_repository:
-    repo: '{{ ceph_enterprise_repo }}'
-    state: absent
-    update_cache: false
-
-- name: Adding the ProxMox free repository
-  apt_repository:
-    repo: '{{ pve_nosub_repo }}'
+    repo: '{{ item.repo }}'
     state: present
     update_cache: false
+  loop: "{{ enable_repository }}"
 
-- name: Adding the Ceph free repository
-  apt_repository:
-    repo: '{{ ceph_nosub_repo }}'
-    state: present
-    update_cache: false

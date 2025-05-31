@@ -18,7 +18,7 @@ In your playbook, you should specify a vars_files:
   vars_files:  
    - vars/chronyc_vars.yml
 ```
-This vars_files should be formated as:
+This vars_files should be formatted as shown below. Note that iburst is defined statically in the Jinja template. If you don't want it, you can modify the template.
 ```
 ntp_servers:
   - name: 0.us.pool.ntp.org
