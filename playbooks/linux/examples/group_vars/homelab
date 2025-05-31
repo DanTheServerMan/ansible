@@ -1,14 +1,14 @@
 docker_container_directory: /docker
 docker_compose_directory: /docker/compose
 nfs_servers:
- -  nfs_server: 192.168.1.110
-    nfs_export: /test
+ -  nfs_server: 192.168.1.1
+    nfs_export: /nfs/
     nfs_opts: rw,sync,nfsvers=3
     nfs_state: mounted
     mount_point: /apps/
 nfs_config:
-  - export_host: 192.168.1.110
-    export_dir: /test
+  - export_host: 192.168.1.2
+    export_dir: /nfs
     export_opt: (rw,sync,no_subtree_check)
 nginx:
   - name: nginx-ansible
