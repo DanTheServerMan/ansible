@@ -1,13 +1,7 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for deploy-pihole-docker
-- name: Install docker 
-  package:
-    name: 
-     - docker.io 
-    state: latest 
-
-- name: Create directories on {{ inventory_hostname }} 
+- name: Creating directories
   file: 
     path: '{{ docker_container_directory }}/{{ item.name }}/'
     state: directory
@@ -19,7 +13,7 @@
     src: nginx.conf.j2
     dest: '{{ docker_container_directory }}/nginx/nginx.conf'
 
-- name: Creating containers {{ inventory_hostname }}..
+- name: Creating container
   docker_container:
     name: '{{ item.name }}'
     image: '{{ item.image }}'
