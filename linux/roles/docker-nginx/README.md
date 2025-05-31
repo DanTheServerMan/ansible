@@ -59,8 +59,8 @@ Example Playbook
 
 Here is an example playbook, using the role, with variables in place:
 ```
-- name: Deploying Docker Homelab
-  hosts: docker 
+- name: Configure nginx fileserver
+  hosts: nginx 
   become: true
   vars:
     docker_container_directory: /docker/

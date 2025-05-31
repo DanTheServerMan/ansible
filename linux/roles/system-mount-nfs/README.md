@@ -39,7 +39,7 @@ Example Playbook
 
 Here is an example playbook, using the role, with variables in place:
 ```
-- name: ALL
+- name: Configure NFS client mounts
   hosts: nfs-clients
   become: true
   vars_files:

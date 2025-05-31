@@ -27,8 +27,8 @@ Example Playbook
 
 Here is an example playbook, using the role, with variables in place:
 ```
-- name: ALL
-  hosts: docker 
+- name: Configure motd
+  hosts: homelab 
   become: true
   roles:
   - system-motd

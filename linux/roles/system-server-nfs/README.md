@@ -36,7 +36,7 @@ Example Playbook
 
 Here is an example playbook, using the role, with variables in place:
 ```
-- name: ALL
+- name: Configure NFS server exports
   hosts: nfs-servers 
   become: true
   vars_files:

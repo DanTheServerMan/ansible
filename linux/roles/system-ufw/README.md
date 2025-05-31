@@ -13,7 +13,7 @@ This role was developed targeting Ubuntu 22.04 and has not been tested on other 
 Role Variables
 --------------
  
-No vars in the playbook are required, however you must specify a vars_files of vars/ufw-vars.yml. 
+No vars in the playbook are required, however you must specify a vars_files of vars/ufw-vars.yml. You can use group_vars or another method based on your needs.
 
 You can add in multiple servers to that file, using the example below, and it will loop through the array, managing multiple firewall rules.
 
@@ -42,7 +42,7 @@ Example Playbook
 
 Here is an example playbook, using the role, with variables in place:
 ```
-- name: ALL
+- name: Configure UFW
   hosts: ufw-hosts 
   become: true
   vars_files:
