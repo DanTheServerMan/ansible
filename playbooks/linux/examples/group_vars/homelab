@@ -1,0 +1,58 @@
+docker_container_directory: /docker
+docker_compose_directory: /docker/compose
+nfs_servers:
+ -  nfs_server: 192.168.1.110
+    nfs_export: /test
+    nfs_opts: rw,sync,nfsvers=3
+    nfs_state: mounted
+    mount_point: /apps/
+nfs_config:
+  - export_host: 192.168.1.110
+    export_dir: /test
+    export_opt: (rw,sync,no_subtree_check)
+nginx:
+  - name: nginx-ansible
+    image: nginx:latest
+    state: started
+    volume:
+    - '{{ docker_container_directory }}/nginx/files:/usr/share/nginx/html:ro'
+    - '{{ docker_container_directory }}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+    recreate: true
+    published_ports:
+      - "8080:80"
+ufw_rules:
+ -  comment: Allow port 22 for SSH
+    src_host: any
+    dest_host: any
+    port: '22'
+    action: allow
+ -  comment: Allow port 2049 for NFS 
+    src_host: any
+    dest_host: any
+    port: '2049'
+    action: allow
+ -  comment: Allow port 443 for pihole
+    src_host: any
+    dest_host: any
+    port: '443'
+    action: allow
+ -  comment: Allow port 80 traffic for pihole
+    src_host: any
+    dest_host: any
+    port: '53'
+    action: allow
+ -  comment: Allow port 80 traffic for pihole
+    src_host: any
+    dest_host: any
+    port: '80'
+    action: allow
+ -  comment: Allow port 1053 traffic for pihole
+    src_host: any
+    dest_host: any
+    port: '1053'
+    action: allow
+ -  comment: Allow port 8080 traffic for nginx
+    src_host: any
+    dest_host: any
+    port: '8080'
+    action: allow
