@@ -1,13 +1,6 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for deploy-pihole-docker
-- name: Install docker & docker-compose
-  package:
-    name: 
-     - docker.io 
-     - docker-compose-v2
-    state: latest 
-
 - name: Creating directories
   file:
     path: '{{ docker_container_directory }}/pihole'
