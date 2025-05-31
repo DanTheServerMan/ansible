@@ -15,9 +15,7 @@ This role was developed targeting Ubuntu 24.04 and has not been tested on a Red 
 Role Variables
 --------------
  
-No vars in the playbook are required, however you must specify a vars_files of vars/nfs-server-vars.yml. You can use group_vars or another method based on your needs.
-
-You can add in multiple servers to that file, using the example below, and it will loop through the array, adding multiple lines to /etc/exports.
+This playbook requires you to define the configuration as an array. You can provide these variables either as a vars_files, or using group_vars:
 
 ```
 # Items in /etc/exports
@@ -26,6 +24,9 @@ nfs_config:
     export_dir: /test
     export_opt: (rw,sync,no_subtree_check)
 ```
+
+You can add in multiple servers to that file, using the example above, and it will loop through the array, adding multiple lines to /etc/exports. 
+
 Dependencies
 ------------
 
@@ -34,13 +35,11 @@ No dependencies
 Example Playbook
 ----------------
 
-Here is an example playbook, using the role, with variables in place:
+Here is an example playbook, using the role, with the assumption the variables are provided in some way (ex. group_vars):
 ```
 - name: Configure NFS server exports
   hosts: nfs-servers 
   become: true
-  vars_files:
-    - vars/nfs-server-vars.yml
   roles:
   - system-server-nfs
 ```

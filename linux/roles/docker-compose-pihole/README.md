@@ -13,24 +13,12 @@ This role was developed targeting Ubuntu 24.04 and has not been tested on a Red 
 Role Variables
 --------------
 
-Below, I will use a two different ways to define variables (in the playbook, in a vars_files). You can use group_vars or another method based on your needs. I am just providing a working example.
+This playbook requires you to define the following variables. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
+```
+docker_container_directory: /docker/
+docker_compose_directory: /docker/compose
+```
 
-The variable configuration will configure the following directory structure. You can change the variables below to fit your use case. 
-
-```
-docker/
-├── compose
-│   └── pihole
-│       └── docker-compose.yml
-```
-Variables were split between the vars file and playbook to allow easy tweaking of things I think you're more likely to change or tweak (like disabling a install, base docker directory, etc.)
-
-The following vars in the playbook are required:
-```
-  vars:
-    docker_container_directory: /docker/
-    docker_compose_directory: /docker/compose
-```
 You also need to define the variable 'password' in some way. How you do that is up to you. Ultimately, the password is in plain-text in the compose-file.
 
 You could use a vault ('ansible-vault create pihole_password_vault')
@@ -41,7 +29,6 @@ You could use a vault ('ansible-vault create pihole_password_vault')
 Or you could change 'vars:' to this:
 ```
   vars:
-    docker_compose_directory: /docker/compose
     password: testing123
 ```
 
@@ -53,16 +40,13 @@ No dependencies, the only external data used was the compose file. I grabbed it 
 Example Playbook
 ----------------
 
-Here is an example playbook, using the role, with variables in place:
+Here is an example playbook, using the role, specifying the vault file, with the assumption the remaining variables are provided in some way (ex. group_vars):
 ```
-- name: Deploying Docker Homelab
-  hosts: docker 
+- name: Deploying pihole
+  hosts: pihole 
   become: true
-  vars:
-    docker_container_directory: /docker/
-    docker_compose_directory: /docker/compose
   vars_files:
-    - vars/pihole_password_vault 
+    - pihole_password_vault 
   roles:
   - docker-compose-pihole
 ```

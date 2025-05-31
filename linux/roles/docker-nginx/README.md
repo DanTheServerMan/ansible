@@ -17,7 +17,7 @@ This role was developed targeting Ubuntu 24.04 and has not been tested on a Red 
 Role Variables
 --------------
  
-The variable configuration will configure the following directory structure. You can change the variables below to fit your use case. You can use group_vars or another method based on your needs.
+The variable configuration will configure the following directory structure. 
 
 ```
 /docker/
@@ -26,17 +26,10 @@ The variable configuration will configure the following directory structure. You
 │   └── nginx.conf
 ```
 
-Variables were split between the vars file and playbook to allow easy tweaking of things I think you're more likely to change or tweak (like disabling a install, base docker directory, etc.)
-
-The following vars in the playbook are required:
-```
-  vars:
-    docker_container_directory: /docker/
-```
-
-And the following vars/docker-vars.yml is required. 
+This playbook requires you to define the configuration as an array. You can provide these variables either as a vars_files, or using group_vars:
 
 ```
+docker_container_directory: /docker
 nginx:
   - name: nginx
     image: nginx:latest
@@ -57,15 +50,11 @@ No dependencies
 Example Playbook
 ----------------
 
-Here is an example playbook, using the role, with variables in place:
+Here is an example playbook, using the role, with the assumption the variables are provided in some way (ex. group_vars):
 ```
 - name: Configure nginx fileserver
   hosts: nginx 
   become: true
-  vars:
-    docker_container_directory: /docker/
-  vars_files:
-    - vars/docker-vars.yml
   roles:
   - docker-nginx
 ```

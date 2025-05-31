@@ -25,7 +25,7 @@ No dependencies
 Example Playbook
 ----------------
 
-Here is an example playbook, using the role, with variables in place:
+Here is an example playbook, using the role, with the assumption the variables are provided in some way (ex. group_vars):
 ```
 - name: Configure motd
   hosts: homelab 

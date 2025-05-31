@@ -13,11 +13,7 @@ This role was developed targeting Ubuntu 22.04 and has not been tested on other 
 Role Variables
 --------------
  
-No vars in the playbook are required, however you must specify a vars_files of vars/ufw-vars.yml. You can use group_vars or another method based on your needs.
-
-You can add in multiple servers to that file, using the example below, and it will loop through the array, managing multiple firewall rules.
-
-The variables defined do not allow every UFW module variable to be changed, such as managing traffic based on its protocol (TCP/UDP). You could add a field in the variables file, and modify the task file if you'd like to have more control. 
+This playbook requires you to define the configuration as an array. You can provide these variables either as a vars_files, or using group_vars:
 
 ```
 ufw_rules:
@@ -32,6 +28,9 @@ ufw_rules:
     port: '443'
     action: allow
 ```
+
+The variables defined do not allow every UFW module variable to be changed, such as managing traffic based on its protocol (TCP/UDP). You could add a field in the variables file, and modify the task file if you'd like to have more control. 
+
 Dependencies
 ------------
 
@@ -40,13 +39,11 @@ No dependencies
 Example Playbook
 ----------------
 
-Here is an example playbook, using the role, with variables in place:
+Here is an example playbook, using the role, with the assumption the variables are provided in some way (ex. group_vars):
 ```
 - name: Configure UFW
   hosts: ufw-hosts 
   become: true
-  vars_files:
-    - vars/ufw-vars.yml
   roles:
   - system-ufw
 ```
