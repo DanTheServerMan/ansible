@@ -8,6 +8,8 @@ Requirements
 
 A Linux machine with network connectivity to both your device and the internet for package downloads.
 
+This role was developed targeting Ubuntu 24.04 and has not been tested on a Red Hat-based system.
+
 Role Variables
 --------------
  
