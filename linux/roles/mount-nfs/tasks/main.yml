@@ -1,0 +1,22 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for deploy-pihole-docker
+- name: Install nfs-common
+  package:
+    name: nfs-common
+    state: latest 
+  when: ansible_facts['os_family'] in ["Debian", "Ubuntu"]
+
+- name: Install nfs-common
+  package:
+    name: nfs-utils
+    state: latest 
+  when: ansible_facts['os_family'] in ["RedHat", "Fedora"]
+
+- name: Mount an NFS volume
+  ansible.posix.mount:
+    src: '{{ nfs_server }}:{{ nfs_mount }}'
+    path: '{{ mount_point }}'
+    opts: rw,sync,nfsvers=3
+    state: mounted
+    fstype: nfs
