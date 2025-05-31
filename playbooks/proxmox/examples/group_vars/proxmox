@@ -1,5 +1,6 @@
 ntp_servers:
   - name: 0.us.pool.ntp.org
+  - name: 1.us.pool.ntp.org
 timezone: 'UTC'
 disable_repository:
   - repo: deb https://enterprise.proxmox.com/debian/ceph-squid bookworm enterprise
@@ -7,11 +8,6 @@ disable_repository:
 enable_repository:
   - repo: deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
   - repo: deb http://download.proxmox.com/debian/ceph-quincy bookworm no-subscription
-nfs_servers:
-  - nfs_storage: # Name of the datastore that will be shown in the UI
-    nfs_path: # NFS export path on the NFS server
-    nfs_ip: # NFS server IP
-    nfs_content: # Content available on the datastore, options are under the 'content' section: https://pve.proxmox.com/wiki/Storage
 packages:
   - name: vim
     state: latest
