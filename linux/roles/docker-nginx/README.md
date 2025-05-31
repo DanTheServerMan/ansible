@@ -5,7 +5,7 @@ Created to automate the deployment of a nginx file server via Docker in my homel
 
 An example nginx.conf does exist in templates/ that serves the purpose of the file server, accessible via host:8080
 
-The default directory exposed via the webserver has a root directory of /docker/nginx/files/. The root directory of /docker/ can be tweaked via the docker_container_directory directory. 
+The default directory exposed via the webserver has a root directory of /docker/nginx/files/. The root directory of /docker/ can be changed via the docker_container_directory variable. 
 
 Requirements
 ------------
@@ -16,15 +16,6 @@ This role was developed targeting Ubuntu 24.04 and has not been tested on a Red 
 
 Role Variables
 --------------
- 
-The variable configuration will configure the following directory structure. 
-
-```
-/docker/
-├── nginx
-│   ├── files
-│   └── nginx.conf
-```
 
 This playbook requires you to define the configuration as an array. You can provide these variables either as a vars_files, or using group_vars:
 
@@ -42,6 +33,14 @@ nginx:
       - "8080:80"
 ```
 
+The variable configuration will configure the following directory structure. 
+
+```
+/docker/
+├── nginx
+│   ├── files
+│   └── nginx.conf
+```
 Dependencies
 ------------
 
