@@ -1,0 +1,24 @@
+events {}
+
+http {
+    include       mime.types;
+    default_type  text/html;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        root /usr/share/nginx/html;
+        index index.html;
+
+        location / {
+            autoindex on;
+            autoindex_exact_size off;
+            autoindex_localtime on;
+            try_files $uri $uri/ =404;
+        }
+
+        access_log /var/log/nginx/access.log;
+        error_log  /var/log/nginx/error.log;
+    }
+}
