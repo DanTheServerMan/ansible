@@ -1,4 +1,4 @@
-mount-nfs
+system-mount-nfs
 =========
 
 Created to automate the configuration of NFS datastores in my homelab.
@@ -45,7 +45,7 @@ Here is an example playbook, using the role, with variables in place:
   vars_files:
     - vars/nfs-vars.yml
   roles:
-  - mount-nfs 
+  - system-mount-nfs
 ```
 License
 -------

@@ -1,4 +1,4 @@
-motd
+system-motd
 =========
 
 Created to automate the configuration of login banners in my homelab.
@@ -31,7 +31,7 @@ Here is an example playbook, using the role, with variables in place:
   hosts: docker 
   become: true
   roles:
-  - motd
+  - system-motd
 ```
 License
 -------
