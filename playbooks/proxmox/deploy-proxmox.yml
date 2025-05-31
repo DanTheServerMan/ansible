@@ -1,0 +1,13 @@
+---
+- name: ProxMox Host Configuration
+  hosts: proxmox
+  become: true
+  vars_files:
+   - vault/vault
+  roles:
+  - proxmox-nosub-repo
+  - proxmox-install-packages 
+  - proxmox-single-host-update
+  - proxmox-motd
+  - proxmox-chronyc
+  - proxmox-nfs

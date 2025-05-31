@@ -1,3 +1,6 @@
 .DS_Store
 dockarr/
-playbooks/
+playbooks/*/*vars*
+playbooks/*/*vault*
+playbooks/*/*inventory*
+playbooks/*/*.cfg*

@@ -1,0 +1,42 @@
+
+- name: ProxMox Host Configuration
+  hosts: proxmox
+  become: true
+  vars:
+    api_path: /api2/json/nodes/bastet-pmx-1/apt/repositories
+  vars_files:  
+   - proxmox-vault
+  tasks:
+    - name: Authenticate to Proxmox API
+      uri:
+        url: "https://{{ ansible_hostname }}:8006/api2/json/access/ticket"
+        method: POST
+        body_format: form-urlencoded
+        body:
+          username: "{{ pve_username }}"
+          password: "{{ pve_password }}"
+        validate_certs: false
+      register: auth_response
+
+    - name: Set auth tokens
+      set_fact:
+        pve_ticket: "{{ auth_response.json.data.ticket }}"
+        pve_csrf: "{{ auth_response.json.data.CSRFPreventionToken }}"
+
+    ## Role Tasks
+    - name: Get a new target 
+      uri:
+        url: "https://{{ ansible_hostname }}:8006{{ api_path }}"
+        method: GET
+        headers:
+          Cookie: "PVEAuthCookie={{ pve_ticket }}"
+          CSRFPreventionToken: "{{ pve_csrf }}"
+        body_format: form-urlencoded
+        validate_certs: false
+      register: debug_results
+      ignore_errors: true
+
+    ## Debug
+    - name: Show result message
+      debug:
+        var: "{{ debug_results.json.data.files | selectattr('standard-repos') }}"

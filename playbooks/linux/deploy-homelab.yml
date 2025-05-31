@@ -1,0 +1,47 @@
+---
+## NFS Configurations
+- name: Configure NFS server exports
+  hosts: nfs-server 
+  become: true
+  roles:
+  - system-server-nfs
+
+- name: Configure NFS client mounts
+  hosts: nfs-client 
+  become: true
+  roles:
+  - system-mount-nfs
+
+## General homelab config on hosts
+- name: Configure UFW 
+  hosts: homelab
+  become: true
+  roles:
+  - system-ufw
+
+- name: Configure motd 
+  hosts: homelab 
+  become: true
+  roles:
+  - system-motd
+
+## Configure specific services
+- name: Configure nginx fileserver
+  hosts: docker 
+  become: true
+  roles:
+  - docker-nginx
+
+- name: Setup docker-compose pihole
+  hosts: docker
+  become: true
+  vars_files:
+   - vault/vault
+  roles:
+  - docker-compose-pihole
+
+- name: Configure Dockarr 
+  hosts: dockarr 
+  become: true
+  roles:
+  - dockarr
