@@ -1,0 +1,23 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for motd
+
+- name: Configure UFW rules
+  community.general.ufw:
+    comment: '{{ item.comment }}'
+    rule: '{{ item.action }}'
+    src: '{{ item.src_host }}'
+    dest:  '{{ item.dest_host }}'
+    port: '{{ item.port }}'
+  loop: '{{ ufw_rules }}'
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+
+- name: Make sure UFW is started and enabled
+  systemd:
+    name: ufw
+    enabled: true
+    state: started
+    

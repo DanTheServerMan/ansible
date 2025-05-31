@@ -8,7 +8,7 @@ It will also attempt to detect your OS and install either nfs-utils or nfs-commo
 Requirements
 ------------
 
-A Linux machine with network connectivity to both your device, the internet for package downloads, and a functioning NFS export. 
+A Linux machine with network connectivity to both your device, the internet for package downloads, and a functioning NFS export. You can use my role system-server-nfs to configure the NFS export/server if you need assistance.
 
 It also assumes that there is no firewall that may block connectivity, either on the NAS, network, or host.
 
@@ -17,7 +17,7 @@ This role was developed targeting Ubuntu 24.04 and has not been tested on a Red 
 Role Variables
 --------------
  
-No vars in the playbook are required, however you must specify a vars_file of vars/nfs-vars.yml. 
+No vars in the playbook are required, however you must specify a vars_files of vars/nfs-vars.yml. 
 
 You can add in multiple servers to that file, using the example below, and it will loop through the array, adding multiple mounts in one go.
 
