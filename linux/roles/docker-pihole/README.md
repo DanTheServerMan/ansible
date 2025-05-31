@@ -41,12 +41,6 @@ Or you could change 'vars:' to this:
     password: testing123
 ```
 
-And the following vars/docker-vars.yml is required. You can also hard code it in the pihole-compose.yml.j2 if you'd prefer not to have a vars file.
-
-```
-version: latest
-timezone: UTC
-```
 Dependencies
 ------------
 
