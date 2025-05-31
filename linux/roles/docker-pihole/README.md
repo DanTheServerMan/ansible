@@ -27,7 +27,6 @@ The following vars in the playbook are required:
   vars:
     docker_container_directory: /docker/
     docker_compose_directory: /docker/compose
-    install_pihole: 'true'
 ```
 You also need to define the variable 'password' in some way. How you do that is up to you. Ultimately, the password is in plain-text in the compose-file.
 
@@ -40,7 +39,6 @@ Or you could change 'vars:' to this:
 ```
   vars:
     docker_compose_directory: /docker/compose
-    install_pihole: 'true'
     password: testing123
 ```
 Dependencies
@@ -59,7 +57,6 @@ Here is an example playbook, using the role, with variables in place:
   vars:
     docker_container_directory: /docker/
     docker_compose_directory: /docker/compose
-    install_pihole: 'true'
   vars_files:
     - vars/pihole_password_vault 
   roles:

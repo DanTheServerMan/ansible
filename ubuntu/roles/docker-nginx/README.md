@@ -3,7 +3,9 @@ Role Name
 
 Created to automate the deployment of a nginx file server via Docker in my homelab.
 
-An example nginx.conf does exist in templates/ that serves the purpose of the file server, accessible via host:8080 
+An example nginx.conf does exist in templates/ that serves the purpose of the file server, accessible via host:8080
+
+The default directory exposed via the webserver has a root directory of /docker/nginx/files/. The root directory of /docker/ can be tweaked via the docker_container_directory directory. 
 
 Requirements
 ------------
@@ -27,10 +29,7 @@ Variables were split between the vars file and playbook to allow easy tweaking o
 The following vars in the playbook are required:
 ```
   vars:
-    docker_compose_directory: /docker/compose
-    install_pihole: 'true'
-  vars_files:
-    - vars/pihole_password_vault # Script expects variable name of 'password', NOTE that the password will be plain text in the compose file. You can just remove vars_files and add a vars: password: if you wish.
+    docker_container_directory: /docker/
 ```
 
 And the following vars/docker-vars.yml is required. The 'state' was set to 'started' to apply new nginx.conf configurations, but you can adjust as needed.
@@ -63,7 +62,6 @@ Here is an example playbook, using the role, with variables in place:
   become: true
   vars:
     docker_container_directory: /docker/
-    install_nginx: 'true'
   vars_files:
     - vars/docker-vars.yml
   roles:
