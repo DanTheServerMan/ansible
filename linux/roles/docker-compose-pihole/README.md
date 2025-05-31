@@ -12,8 +12,10 @@ This role was developed targeting Ubuntu 24.04 and has not been tested on a Red 
 
 Role Variables
 --------------
- 
-The variable configuration will configure the following directory structure. You can change the variables below to fit your use case.
+
+Below, I will use a two different ways to define variables (in the playbook, in a vars_files). You can use group_vars or another method based on your needs. I am just providing a working example.
+
+The variable configuration will configure the following directory structure. You can change the variables below to fit your use case. 
 
 ```
 docker/

@@ -17,7 +17,7 @@ This role was developed targeting Ubuntu 24.04 and has not been tested on a Red 
 Role Variables
 --------------
  
-No vars in the playbook are required, however you must specify a vars_files of vars/nfs-vars.yml. 
+No vars in the playbook are required, however you must specify a vars_files of vars/nfs-vars.yml. You can use group_vars or another method based on your needs.
 
 You can add in multiple servers to that file, using the example below, and it will loop through the array, adding multiple mounts in one go.
 
