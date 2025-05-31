@@ -1,9 +1,7 @@
-system-server-nfs
+system-update
 =========
 
-Created to automate the configuration of a NFS server in my homelab.
-
-It will also attempt to detect your OS and install either nfs-utils or nfs-common to allow the mount.
+Created to automate the update of linux in my homelab. This can be followed up with my system-mount-nfs role to configure the NFS clients.
 
 Requirements
 ------------
@@ -17,9 +15,9 @@ This role was developed targeting Ubuntu 24.04 and has not been tested on a Red 
 Role Variables
 --------------
  
-No vars in the playbook are required, however you must specify a vars_file of vars/nfs-server-vars.yml. 
+No vars in the playbook are required, however you must specify a vars_files of vars/nfs-server-vars.yml. 
 
-You can add in multiple servers to that file, using the example below, and it will loop through the array, adding multiple mounts in one go.
+You can add in multiple servers to that file, using the example below, and it will loop through the array, adding multiple lines to /etc/exports.
 
 ```
 # Items in /etc/exports

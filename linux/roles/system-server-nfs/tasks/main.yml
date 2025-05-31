@@ -33,10 +33,8 @@
   template:
     src: exports.j2
     dest: /etc/exports 
-
-- name: Re-export NFS shares, using the /etc/exports template
-  command: exportfs -v
-
+  notify: trigger_export 
+  
 - name: Gather 'showmount' output for the host (shows currently active NFS mounts)
   command: showmount
   register: showmount_output
