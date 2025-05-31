@@ -1,0 +1,38 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for motd
+
+- name: Set the login banner in sshd 
+  lineinfile:
+    path: /etc/ssh/sshd_config 
+    regexp: "^#Banner"
+    line: Banner /etc/motd 
+  notify:
+    - restart_sshd
+
+- name: Implement motd template file
+  template:
+    src: ../templates/motd.j2
+    dest: /etc/motd
+  notify:
+    - restart_sshd
+
+- name: Ubuntu specific cleanup
+  block:
+    - name: Removing 10-uname to prevent kernel logging info from appearing in the MOTD
+      file:
+        path: /etc/update-motd.d
+        state: absent
+      notify:
+        - restart_sshd
+
+    - name: Removing issue and issue.net
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/issue
+        - /etc/issue.net
+      notify:
+        - restart_sshd
+  when: ansible_facts['os_family'] in ["Debian", "Ubuntu"]
