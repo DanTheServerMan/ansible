@@ -1,0 +1,46 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for mount-nfs
+- name: Install nfs-common
+  package:
+    name: 
+     - nfs-common
+     - nfs-kernel-server
+    state: latest 
+  when: ansible_facts['os_family'] in ["Debian", "Ubuntu"]
+
+- name: Install nfs-utils
+  package:
+    name: 
+     - nfs-utils
+     - nfs-kernel-server
+    state: latest 
+  when: ansible_facts['os_family'] in ["RedHat", "Fedora"]
+
+- name: Start & enable nfs-kernel-server
+  systemd:
+    name: nfs-kernel-server 
+    state: started
+    enabled: true
+
+- name: Create and/or check that the directories to be exported exist
+  file:
+    path: '{{ item.export_dir }}'
+    state: directory
+  loop: '{{ nfs_config }}'
+
+- name: Configuring /etc/exports on {{ inventory_hostname }}
+  template:
+    src: exports.j2
+    dest: /etc/exports 
+
+- name: Re-export NFS shares, using the /etc/exports template
+  command: exportfs -v
+
+- name: Gather 'showmount' output for the host (shows currently active NFS mounts)
+  command: showmount
+  register: showmount_output
+
+- name: Print 'showmount' output
+  debug:
+    msg: '{{ showmount_output.stdout_lines }}'
