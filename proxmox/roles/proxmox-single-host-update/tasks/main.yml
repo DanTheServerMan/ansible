@@ -1,0 +1,27 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for upgrade and reboot
+# Per ProxMox, you should use dist upgrade and not a regular 'apt upgrade'
+- name: Upgrade ProxMox to latest version
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: Check if a reboot is required
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required_check
+
+- name: REBOOT REQUIRED
+  pause:
+    prompt: Update has detected that a reboot is necessary. Do you want to proceed with the update? (y/n)
+  register: reboot_prompt
+  when: reboot_required_check.stat.exists
+  
+- name: Reboot the host after {{ pre_reboot_delay }} seconds to apply the packages
+  reboot:
+    msg: 'Ansible initiated reboot is triggering in {{ pre_reboot_delay }} seconds..'
+    pre_reboot_delay: '{{ pre_reboot_delay }}'
+  when: 
+   - reboot_required_check.stat.exists
+   - reboot_prompt == 'y'

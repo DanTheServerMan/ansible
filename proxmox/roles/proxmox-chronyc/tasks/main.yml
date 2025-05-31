@@ -1,0 +1,13 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for ntp
+- name: Set timezone to '{{ timezone }}'
+  timezone:
+    name: '{{ timezone }}'
+
+- name: Implement chrony template file
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+  notify:
+    - restart_chronyd
