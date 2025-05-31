@@ -1,7 +1,9 @@
-docker-nginx
+mount-nfs
 =========
 
 Created to automate the configuration of NFS datastores in my homelab.
+
+It will also attempt to detect your OS and install either nfs-utils or nfs-common to allow the mount.
 
 Requirements
 ------------
