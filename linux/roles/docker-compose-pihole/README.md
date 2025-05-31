@@ -1,4 +1,4 @@
-docker-pihole
+docker-compose-pihole
 =========
 
 Created to automate the deployment of PiHole via Docker in my homelab.
@@ -62,7 +62,7 @@ Here is an example playbook, using the role, with variables in place:
   vars_files:
     - vars/pihole_password_vault 
   roles:
-  - docker-nginx
+  - docker-compose-pihole
 ```
 License
 -------
