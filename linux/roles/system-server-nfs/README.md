@@ -39,7 +39,7 @@ Example Playbook
 Here is an example playbook, using the role, with variables in place:
 ```
 - name: ALL
-  hosts: docker 
+  hosts: nfs-servers 
   become: true
   vars_files:
     - vars/nfs-server-vars.yml
