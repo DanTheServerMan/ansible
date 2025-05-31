@@ -4,3 +4,4 @@ playbooks/*/*vars*
 playbooks/*/*vault*
 playbooks/*/*inventory*
 playbooks/*/*.cfg*
+playbooks/*/*sensitive*
