@@ -1,4 +1,4 @@
-Role Name
+docker-pihole
 =========
 
 Created to automate the deployment of PiHole via Docker in my homelab.
@@ -13,14 +13,13 @@ Role Variables
  
 The variable configuration will configure the following directory structure. You can change the variables below to fit your use case.
 
-Variables were split between the vars file and playbook to allow easy tweaking of things I think you're more likely to change or tweak (like disabling a install, base docker directory, etc.)
-
 ```
 docker/
 ├── compose
 │   └── pihole
 │       └── docker-compose.yml
 ```
+Variables were split between the vars file and playbook to allow easy tweaking of things I think you're more likely to change or tweak (like disabling a install, base docker directory, etc.)
 
 The following vars in the playbook are required:
 ```
@@ -60,7 +59,7 @@ Here is an example playbook, using the role, with variables in place:
   vars_files:
     - vars/pihole_password_vault 
   roles:
-  - deploy-nginx
+  - docker-nginx
 ```
 License
 -------
