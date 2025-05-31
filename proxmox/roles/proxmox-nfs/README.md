@@ -25,13 +25,14 @@ An example would be:
 username: root@pam
 password: "password"
 ```
-In your playbook, you should specify a vars_files:
+In your playbook, you can specify the vault:
 ```
   vars_files:  
-   - vars/nfs-vars.yml
    - vars/pve-vault # Or your other file
 ```
-This vars_files can be formated as this. Change the name of the packages, their state, and quantity in the array, based on your needs.
+
+Besides the password, this playbook requires you to define the configuration as an array. You can provide these variables either as a vars_files, or using group_vars:
+
 ```
 nfs_servers:
   - nfs_storage: # Name of the datastore that will be shown in the UI
@@ -47,13 +48,12 @@ No dependencies
 Example Playbook
 ----------------
 
-Here is an example playbook, using the role, with variables in place:
+Here is an example playbook, using the role, specifying the vault, and with the assumption the variables are provided in some way (ex. group_vars):
 ```
 - name: ProxMox Host Configuration
   hosts: proxmox
   become: true
   vars_files:  
-   - vars/nfs-vars.yml
    - vars/pve-vault # Or your other file
   roles:
   - proxmox-nfs

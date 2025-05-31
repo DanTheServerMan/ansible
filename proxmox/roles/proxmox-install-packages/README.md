@@ -13,12 +13,7 @@ This role was developed targeting PVE 8.4.
 Role Variables
 --------------
  
-In your playbook, you should specify a vars_files:
-```
-  vars_files:  
-   - vars/packages-vars.yml
-```
-This vars_files can be formated as this. Change the name of the packages, their state, and quantity in the array, based on your needs.
+This playbook requires you to define the configuration as an array. You can provide these variables either as a vars_files, or using group_vars:
 ```
 packages:
   - name: vim
@@ -26,6 +21,8 @@ packages:
   - name: nload
     state: latest
 ```
+Change the name of the packages, their state, and quantity in the array, based on your needs.
+
 Dependencies
 ------------
 
@@ -34,13 +31,11 @@ No dependencies
 Example Playbook
 ----------------
 
-Here is an example playbook, using the role, with variables in place:
+Here is an example playbook, using the role, with the assumption the variables are provided in some way (ex. group_vars):
 ```
 - name: ProxMox Host Configuration
   hosts: proxmox
   become: true
-  vars_files:  
-   - vars/packages-vars.yml
   roles:
   - proxmox-install-packages
 ```

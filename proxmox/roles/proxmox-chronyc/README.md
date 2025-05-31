@@ -13,17 +13,15 @@ This role was developed targeting PVE 8.4.
 Role Variables
 --------------
  
-In your playbook, you should specify a vars_files:
-```
-  vars_files:  
-   - vars/chronyc_vars.yml
-```
-This vars_files should be formatted as shown below. Note that iburst is defined statically in the Jinja template. If you don't want it, you can modify the template.
+This playbook requires you to define the configuration as an array. You can provide these variables either as a vars_files, or using group_vars:
 ```
 ntp_servers:
   - name: 0.us.pool.ntp.org
 timezone: 'UTC'
 ```
+Note that iburst is defined statically in the Jinja template. If you don't want it, you can modify the template.
+
+
 Dependencies
 ------------
 
@@ -32,13 +30,11 @@ No dependencies
 Example Playbook
 ----------------
 
-Here is an example playbook, using the role, with variables in place:
+Here is an example playbook, using the role, with the assumption the variables are provided in some way (ex. group_vars):
 ```
 - name: ProxMox Host Configuration
   hosts: proxmox
   become: true
-  vars_files:  
-   - vars/chronyc_vars.yml
   roles:
   - proxmox-chronyc
 ```
