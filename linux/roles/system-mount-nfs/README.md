@@ -22,12 +22,12 @@ No vars in the playbook are required, however you must specify a vars_file of va
 You can add in multiple servers to that file, using the example below, and it will loop through the array, adding multiple mounts in one go.
 
 ```
-- nfs_servers:
-   -  nfs_server: 192.168.1.100
-      nfs_export: /volume1/NFS-ISO
-      nfs_opts: rw,sync,nfsvers=3
-      nfs_state: mounted
-      mount_point: /ISO/
+nfs_servers:
+ -  nfs_server: 192.168.1.100
+    nfs_export: /volume1/NFS-ISO
+    nfs_opts: rw,sync,nfsvers=3
+    nfs_state: mounted
+    mount_point: /ISO/
 ```
 Dependencies
 ------------
