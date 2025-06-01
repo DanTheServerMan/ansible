@@ -14,6 +14,7 @@
 - name: Deploy Pi-hole container(s)
   community.docker.docker_container:
     name: "{{ item.name }}"
+    hostname: '{{ item.name }}'
     image: "{{ item.image }}"
     state: "{{ item.state }}"
     published_ports: "{{ item.published_ports }}"

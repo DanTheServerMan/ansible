@@ -23,6 +23,7 @@
 - name: Creating container
   docker_container:
     name: '{{ item.name }}'
+    hostname: '{{ item.name }}'
     image: '{{ item.image }}'
     state: '{{ item.state }}'
     published_ports: '{{ item.published_ports }}'
@@ -31,6 +32,5 @@
     volumes:
     - '{{ docker_container_config_directory }}/{{ item.name }}:/config'
     - '{{ syncthing_directory }}:/{{ syncthing_repo }}'
-    - '{{ syncthing_directory2 }}:/{{ syncthing_repo2 }}'
     restart_policy: '{{ item.restart_policy }}'
   loop: "{{ syncthing }}"
