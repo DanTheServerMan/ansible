@@ -19,23 +19,3 @@
     mode: '0755'
   notify:
     - restart_sshd
-
-- name: Ubuntu specific cleanup
-  block:
-    - name: Removing 10-uname to prevent kernel logging info from appearing in the MOTD
-      file:
-        path: /etc/update-motd.d
-        state: absent
-      notify:
-        - restart_sshd
-
-    - name: Removing issue and issue.net
-      file:
-        path: "{{ item }}"
-        state: absent
-      loop:
-        - /etc/issue
-        - /etc/issue.net
-      notify:
-        - restart_sshd
-  when: ansible_facts['os_family'] in ["Debian", "Ubuntu"]
