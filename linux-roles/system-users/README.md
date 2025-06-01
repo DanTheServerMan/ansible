@@ -36,7 +36,7 @@ users:
   password: '{{ user_password }}'
   create_home: true
   group: docker 
-  shell: /bin/bash
+  shell: /bin/bash 
   sudo: false
   sudo_config: ''
   state: present
