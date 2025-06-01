@@ -9,6 +9,11 @@ nfs_servers:
 # Docker directories
 docker_container_data_directory: /container_config/
 
+# Nginx directories
+nginx_file_directories:
+  - name: ISOs
+  - name: Files
+
 # UFW Rules
 ufw_rules:
  -  comment: Allow port 22 for SSH

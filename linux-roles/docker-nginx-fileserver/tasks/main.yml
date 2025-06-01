@@ -9,7 +9,7 @@
     owner: '{{ ansible_ssh_user }}'
     group: '{{ ansible_ssh_user }}'
     mode: '0755'
-  loop: "{{ directories }}"
+  loop: "{{ nginx_file_directories }}"
 
 - name: Copying nginx.conf template 
   template: 
