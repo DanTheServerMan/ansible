@@ -1,7 +1,7 @@
 docker-nginx-fileserver
 =========
 
-Created to automate the deployment of a nginx file server via Docker. This can be helpful if you wish to browser a specific folder in you web browser, or fetch files from a Linux box via http.
+Created to automate the deployment of a nginx file server via Docker. This can be helpful if you wish to view a specific folder in you web browser, or fetch files from a Linux box via http. In my case, its helpful for my homelab and ISO files. 
 
 An example nginx.conf does exist in templates/ that serves the purpose of the file server, accessible via host:8080
 
