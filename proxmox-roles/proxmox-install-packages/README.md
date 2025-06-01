@@ -1,14 +1,13 @@
 proxmox-install-packages
 =========
 
-Created to automate the installation of packages on ProxMox in my homelab.
+Created to automate the installation of packages on ProxMox that are not included in the default installation. In my example, I prefer using vim as a text editor, so this script installs it.
 
 Requirements
 ------------
 
-A ProxMox installation with network connectivity to your device.
-
-This role was developed targeting PVE 8.4.
+- A ProxMox installation with network connectivity to your device.
+- This role was developed targeting PVE 8.4.
 
 Role Variables
 --------------
@@ -22,11 +21,6 @@ packages:
     state: latest
 ```
 Change the name of the packages, their state, and quantity in the array, based on your needs.
-
-Dependencies
-------------
-
-No dependencies
 
 Example Playbook
 ----------------

@@ -1,21 +1,22 @@
 proxmox-nfs
 =========
 
-Created to automate the configuration of NFS storage on ProxMox in my homelab.
+Created to automate the configuration of NFS storage on ProxMox using the API.
 
 While you can use blockinfile to directly manage /etv/pve/storage.cfg, in my experience, this started to have issues when having multiple datastores. Plus, I wanted to see what using the API would look like. So, you will have to handle credentials to use this module. See below.
+
+**NOTE**: At the time of writing, if the NFS configuration already exists, the playbook will complete but return large failure code output for that specific task - this is why I print out a cleaner message afterwards so you can confirm the status of the configuration.
 
 Requirements
 ------------
 
-A ProxMox installation with network connectivity to your device. It also assumes that there is a NAS on your network with properly configured exports.
-
-This role was developed targeting PVE 8.4.
+- A ProxMox installation with network connectivity to your device. It also assumes that there is a NAS on your network with properly configured exports.
+- This role was developed targeting PVE 8.4.
 
 Role Variables
 --------------
  
-You need to define two variables for logging in. I recommend and use ansible-vault. The variables you need to define is:
+You need to define two variables for logging in to generate a token before using the API. I recommend, and use, ansible-vault. The variables you need to define is:
 ```
 username: [YOUR_USER]@[DOMAIN]
 password: "[YOUR PASSWORD]"
@@ -40,10 +41,6 @@ nfs_servers:
     nfs_ip: # NFS server IP
     nfs_content: # Content available on the datastore, options are under the 'content' section: https://pve.proxmox.com/wiki/Storage
 ```
-Dependencies
-------------
-
-No dependencies
 
 Example Playbook
 ----------------

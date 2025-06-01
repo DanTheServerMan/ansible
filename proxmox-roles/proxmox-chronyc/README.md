@@ -1,14 +1,13 @@
 proxmox-chronyc
 =========
 
-Created to automate the configuration of chronyc on ProxMox in my homelab.
+Created to automate the configuration of chronyc on ProxMox.
 
 Requirements
 ------------
 
-A ProxMox installation with network connectivity to your device.
-
-This role was developed targeting PVE 8.4.
+- A ProxMox installation with network connectivity to your device.
+- This role was developed targeting PVE 8.4.
 
 Role Variables
 --------------
@@ -21,11 +20,6 @@ timezone: 'UTC'
 ```
 Note that iburst is defined statically in the Jinja template. If you don't want it, you can modify the template.
 
-
-Dependencies
-------------
-
-No dependencies
 
 Example Playbook
 ----------------

@@ -1,14 +1,13 @@
 proxmox-nosub-repo
 =========
 
-Created to automate the configuration of non-subscription repositories on ProxMox in my homelab.
+Created to automate the configuration of non-subscription repositories on ProxMox, and disable the production repositories.
 
 Requirements
 ------------
 
-A ProxMox installation with network connectivity to your device. 
-
-This role was developed targeting PVE 8.4.
+- A ProxMox installation with network connectivity to your device. 
+- This role was developed targeting PVE 8.4.
 
 Role Variables
 --------------
@@ -22,10 +21,6 @@ enable_repository:
   - repo: deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
   - repo: deb http://download.proxmox.com/debian/ceph-quincy bookworm no-subscription
 ```
-Dependencies
-------------
-
-No dependencies
 
 Example Playbook
 ----------------
