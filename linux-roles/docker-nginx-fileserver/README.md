@@ -5,7 +5,7 @@ Created to automate the deployment of a nginx file server via Docker in my homel
 
 An example nginx.conf does exist in templates/ that serves the purpose of the file server, accessible via host:8080
 
-The default directory exposed via the webserver has a root directory of /docker/nginx/files/. The root directory of /docker/ can be changed via the docker_container_directory variable. 
+The default directory exposed via the webserver has a root directory of /docker/nginx/files/. The root directory of /docker/ can be changed via the docker_container_data_directory variable. 
 
 Requirements
 ------------
@@ -20,31 +20,38 @@ Role Variables
 This playbook requires you to define the base directory for the docker containers. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
 
 ```
-docker_container_directory: /docker
+docker_container_data_directory: /docker
 ```
 
 It will be used by the vars.yml file as follows:
 ```
+directories:
+  - name: ISOs
+  - name: Files
+
 nginx:
   - name: nginx
     image: nginx:latest
     state: started
     volume:
-    - '{{ docker_container_directory }}/nginx/files:/usr/share/nginx/html:ro'
-    - '{{ docker_container_directory }}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+    - '{{ docker_container_data_directory }}/nginx/files:/usr/share/nginx/html:ro'
+    - '{{ docker_container_data_directory }}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
     recreate: true
     published_ports:
       - "8080:80"
 ```
 
+
 The variable configuration will configure the following directory structure. 
 
 ```
-/docker/
-├── nginx
-│   ├── files
-│   └── nginx.conf
+nginx-ansible/
+├── files
+│   ├── Files
+│   └── ISOs
+└── nginx.conf
 ```
+
 Dependencies
 ------------
 

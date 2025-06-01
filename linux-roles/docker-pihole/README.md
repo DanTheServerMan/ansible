@@ -28,7 +28,7 @@ Or you could change 'vars:' to this:
 This playbook requires you to define the base directory for the docker containers. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
 
 ```
-docker_container_directory: /docker
+docker_container_data_directory: /docker
 ```
 
 It will be used by the vars.yml file as follows:

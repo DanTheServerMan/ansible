@@ -3,13 +3,13 @@
 # tasks file for docker-nginx
 - name: Creating directories
   file: 
-    path: '{{ docker_container_data_directory }}/{{ item.name }}/'
+    path: '{{ docker_container_data_directory }}/nginx-ansible/files/{{ item.name }}/'
     state: directory
     recurse: true
     owner: '{{ ansible_ssh_user }}'
     group: '{{ ansible_ssh_user }}'
     mode: '0755'
-  loop: "{{ nginx }}"
+  loop: "{{ directories }}"
 
 - name: Copying nginx.conf template 
   template: 

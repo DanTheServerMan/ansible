@@ -1,3 +1,7 @@
+directories:
+  - name: ISOs
+  - name: Files
+  
 nginx:
   - name: nginx-ansible
     image: nginx:latest
