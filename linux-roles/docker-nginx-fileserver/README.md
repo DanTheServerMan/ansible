@@ -1,4 +1,4 @@
-docker-nginx
+docker-nginx-fileserver
 =========
 
 Created to automate the deployment of a nginx file server via Docker in my homelab.
@@ -59,7 +59,7 @@ Here is an example playbook, using the role, with the assumption the variables a
   hosts: nginx 
   become: true
   roles:
-  - docker-nginx
+  - docker-nginx-fileserver
 ```
 License
 -------
