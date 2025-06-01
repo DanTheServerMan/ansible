@@ -18,16 +18,11 @@ This playbook requires you to define the base directory for the docker container
 
 ```
 docker_container_config_directory: /container_config/
-docker_container_data_directory: /nfs-containers/
+nginx_repo_directory: /nfs-iso/
 ```
-The ```docker_container_config_directory``` is where the persistent state of the container will be stored, such as the nginx.conf file. The ```docker_container_data_directory``` is what the webUI will show as a fileserver as the base directory.
 
-These will be the subdirectories made under ```docker_container_data_directory/your_containers_name/```, and what your nginx webUI will show. It is an array so you can add as many directories as you'd like.
-```
-nginx_fileserver_directories:
-  - name: ISOs
-  - name: Files
-```
+```docker_container_config_directory``` is where the persistent state of the container will be stored, such as the nginx.conf file. 
+```nginx_repo_directory``` is what the webUI will show as a fileserver as the base directory. It can be an NFS mount, an existing directory, etc. It will not create the directory for you. It needs to be the full path.
 
 The variable configuration shown above will configure the following directory structure, with nginx-ansible beinbg the name of the container created in the directory path:
 
@@ -37,13 +32,7 @@ This in your ```docker_container_config_directory```
 ├── nginx-ansible
 │   └── nginx.conf
 ```
-This in your ```docker_container_data_directory```
-```
-/nfs-containers/
-├── nginx-ansible
-│   ├── Files
-│   ├── ISOs
-```
+Your ```nginx_repo_directory```  will simply create a full path to that directory. If it already exists, it will also set permissions.
 
 Example Playbook
 ----------------

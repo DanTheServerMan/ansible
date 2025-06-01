@@ -11,28 +11,6 @@
     mode: '0640'
   loop: "{{ nginx }}"
 
-- name: Creating {{ docker_container_data_directory }} directory
-  file: 
-    path: '{{ docker_container_data_directory }}/{{ item.name }}'
-    state: directory
-    recurse: true
-    owner: '{{ ansible_ssh_user }}'
-    group: '{{ ansible_ssh_user }}'
-    mode: '0755'
-  loop: "{{ nginx }}"
-
-- name: Creating nginx data subdirectories
-  file: 
-    path: '{{ docker_container_data_directory }}/{{ item.0.name }}/{{ item.1.name }}'
-    state: directory
-    recurse: true
-    owner: '{{ ansible_ssh_user }}'
-    group: '{{ ansible_ssh_user }}'
-    mode: '0755'
-  with_nested:
-    - "{{ nginx }}"
-    - "{{ nginx_file_directories }}"
-
 - name: Copying nginx.conf template 
   template: 
     src: nginx.conf.j2
@@ -42,6 +20,15 @@
     mode: '0750'
   loop: "{{ nginx }}"
 
+- name: Creating {{ nginx_repo_directory }} directory
+  file: 
+    path: '{{ nginx_repo_directory }}'
+    state: directory
+    recurse: true
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0755'
+
 - name: Creating nginx container
   docker_container:
     name: '{{ item.name }}'
@@ -50,6 +37,6 @@
     published_ports: '{{ item.published_ports }}'
     volumes:
       - "{{ docker_container_config_directory }}/{{ item.name }}/nginx.conf:/etc/nginx/nginx.conf:ro"
-      - "{{ docker_container_data_directory }}/{{ item.name }}:/usr/share/nginx/html:ro"
+      - "{{ nginx_repo_directory }}:/usr/share/nginx/html:ro"
     restart_policy: '{{ item.restart_policy }}'
   loop: "{{ nginx }}"
