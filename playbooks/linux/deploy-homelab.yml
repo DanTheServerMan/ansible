@@ -25,13 +25,14 @@
   roles:
   - docker-nginx
 
-- name: Setup docker-compose pihole
-  hosts: docker
-  become: true
+- name: Configure pihole container
+  hosts: docker 
   vars_files:
    - vault/vault
+  become: true
   roles:
-  - docker-compose-pihole
+  - docker-pihole
+
 
 - name: Configure dockarr NFS client mounts
   hosts: dockarr 
