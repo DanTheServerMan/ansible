@@ -50,9 +50,9 @@ pihole:
     capabilities:
       - NET_ADMIN
       - SYS_TIME
-      - SYS_NICE
+      - SYS_NICE 
     restart_policy: unless-stopped
-
+ 
 ```
 
 Example Playbook
