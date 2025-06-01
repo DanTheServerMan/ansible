@@ -1,10 +1,10 @@
 nginx:
-  - name: nginx
+  - name: nginx-ansible
     image: nginx:latest
     state: started
+    pull: true
     volume:
-    - '{{ docker_container_directory }}/nginx/files:/usr/share/nginx/html:ro'
-    - '{{ docker_container_directory }}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
-    recreate: true
+    - '{{ docker_container_data_directory }}/nginx-ansible/files:/usr/share/nginx/html:ro'
+    - '{{ docker_container_data_directory }}/nginx-ansible/nginx.conf:/etc/nginx/nginx.conf:ro'
     published_ports:
       - "8080:80"

@@ -15,8 +15,8 @@ Role Variables
 
 This playbook requires you to define the following variables. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
 ```
-docker_container_directory: /docker/
-docker_compose_directory: /docker/compose
+docker_container_data_directory: /docker/
+docker_container_compose_directory: /docker/compose
 ```
 
 You also need to define the variable 'password' in some way. How you do that is up to you. Ultimately, the password is in plain-text in the compose-file.

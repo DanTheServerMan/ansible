@@ -3,22 +3,22 @@
 # tasks file for docker-nginx
 - name: Creating directories
   file: 
-    path: '{{ docker_container_directory }}/{{ item.name }}/'
+    path: '{{ docker_container_data_directory }}/{{ item.name }}/'
     state: directory
     recurse: true
   loop: "{{ nginx }}"
 
 - name: Copying nginx.conf template 
-  template:
+  template: 
     src: nginx.conf.j2
-    dest: '{{ docker_container_directory }}/nginx/nginx.conf'
+    dest: '{{ docker_container_data_directory }}/{{ item.name }}/nginx.conf'
+  loop: "{{ nginx }}"
 
 - name: Creating container
   docker_container:
     name: '{{ item.name }}'
     image: '{{ item.image }}'
     state: '{{ item.state }}'
-    recreate: '{{ item.recreate }}'
     published_ports: '{{ item.published_ports }}'
     volumes: '{{ item.volume }}'
   loop: "{{ nginx }}"

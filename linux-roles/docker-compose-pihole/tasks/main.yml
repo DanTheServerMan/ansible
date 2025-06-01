@@ -3,23 +3,23 @@
 # tasks file for docker-pihole
 - name: Creating directories
   file:
-    path: '{{ docker_container_directory }}/pihole'
+    path: '{{ docker_container_data_directory }}/pihole'
     state: directory
     recurse: true
 
 - name: Creating compose directories
   file:
-    path: '{{ docker_compose_directory }}/pihole'
+    path: '{{ docker_container_compose_directory }}/pihole'
     state: directory
     recurse: true
     
 - name: Copy over compose template, modifying as needed 
   template:
     src: pihole-compose.yml.j2
-    dest: '{{ docker_compose_directory }}/pihole/docker-compose.yml'
+    dest: '{{ docker_container_compose_directory }}/pihole/docker-compose.yml'
 
 - name: Creating container
   community.docker.docker_compose_v2:
-    project_src: '{{ docker_compose_directory }}'
+    project_src: '{{ docker_container_compose_directory }}/pihole'
     state: present
     
