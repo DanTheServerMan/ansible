@@ -3,7 +3,6 @@ pihole:
     image: "pihole/pihole:latest"
     state: started
     recreate: true
-    restart_policy: unless-stopped
     pull: yes
     published_ports:
       - "53:53/tcp"
