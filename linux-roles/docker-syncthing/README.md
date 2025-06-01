@@ -27,26 +27,8 @@ syncthing_repo: /nginx
 
 In the UI, ```syncthing_repo``` is what path you'll put as the folder path. So, with the above, you'd put ```/nginx``` in Folder Path. It is the containers perspective of ```syncthing_directory```.
 
-It will be used by the vars.yml file as follows:
-```
-syncthing:
-  - name: syncthing-ansible
-    image: lscr.io/linuxserver/syncthing:latest
-    state: started
-    pull: true
-    published_ports:
-      - "8384:8384"
-      - "22000:22000/tcp"
-      - "22000:22000/udp"
-      - "21027:21027/udp"
-    env:
-      PUID: "1000"
-      PGID: "1000"
-      TZ: "Etc/UTC"
-```
-
 The variable configuration will configure the following directory structure. 
-
+ 
 ```
 /nfs-containers/
 └── nginx-ansible

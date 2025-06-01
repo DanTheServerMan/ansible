@@ -28,19 +28,8 @@ nginx_fileserver_directories:
   - name: ISOs
   - name: Files
 ```
-This creates your container configuration, including the name used in the directory structure:
-```
-nginx:
-  - name: nginx-ansible
-    image: nginx:latest
-    state: started
-    pull: true
-    published_ports:
-      - "8080:80"
-    restart_policy: unless-stopped
-```
 
-The variable configuration shown above will configure the following directory structure. 
+The variable configuration shown above will configure the following directory structure, with nginx-ansible beinbg the name of the container created in the directory path:
 
 This in your ```docker_container_config_directory```
 ```

@@ -12,6 +12,12 @@ Requirements
 Role Variables
 --------------
 
+This playbook requires you to define the base directory for the docker containers. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
+
+```
+docker_container_config_directory: /container_config
+```
+
 You also need to define the variable 'password' in some way. How you do that is up to you. This will be the password you use to sign into the webUI.
 
 You could use a vault ('ansible-vault create pihole_password_vault') to define the variable, then call the vault in the playbook:
@@ -24,11 +30,6 @@ Or you could change 'vars:' on the playbook to this:
 ```
   vars:
     password: testing123
-```
-This playbook requires you to define the base directory for the docker containers. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
-
-```
-docker_container_config_directory: /container_config
 ```
 
 Example Playbook
