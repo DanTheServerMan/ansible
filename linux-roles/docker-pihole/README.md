@@ -30,30 +30,6 @@ This playbook requires you to define the base directory for the docker container
 ```
 docker_container_config_directory: /container_config
 ```
-It will be used by the vars.yml file as follows:
-```
-pihole:
-  - name: pihole-ansible
-    image: "pihole/pihole:latest"
-    state: started
-    recreate: true
-    pull: yes
-    published_ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
-    env:
-      TZ: "UTC"
-      FTLCONF_webserver_api_password: "{{ password }}"
-      FTLCONF_dns_listeningMode: "all"
-    capabilities:
-      - NET_ADMIN
-      - SYS_TIME
-      - SYS_NICE 
-    restart_policy: unless-stopped
- 
-```
 
 Example Playbook
 ----------------

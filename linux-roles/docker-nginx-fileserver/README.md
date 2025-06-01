@@ -14,15 +14,15 @@ Requirements
 Role Variables
 --------------
 
-This playbook requires you to define the base directory for the docker containers, and for the fileserver. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
+This playbook requires you to define the base directory for the docker containers, and for the fileserver. You can provide these variables either as a vars_files, in the playbook, or using group_vars.
 
-It will be used by the vars.yml file as follows:
 ```
 docker_container_config_directory: /container_config/
 docker_container_data_directory: /nfs-containers/
 ```
+The ```docker_container_config_directory``` is where the persistent state of the container will be stored, such as the nginx.conf file. The ```docker_container_data_directory``` is what the webUI will show as a fileserver as the base directory.
 
-These will be the subdirectores made under ```docker_container_data_directory/your_containers_name/```, and what your nginx webUI will show. It is an array so you can add as many directories as you'd like.
+These will be the subdirectories made under ```docker_container_data_directory/your_containers_name/```, and what your nginx webUI will show. It is an array so you can add as many directories as you'd like.
 ```
 nginx_fileserver_directories:
   - name: ISOs

@@ -45,7 +45,6 @@ syncthing:
       TZ: "Etc/UTC"
 ```
 
-
 The variable configuration will configure the following directory structure. 
 
 ```
