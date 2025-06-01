@@ -6,18 +6,11 @@
   roles:
   - system-server-nfs
 
-- name: Configure NFS client mounts
-  hosts: nfs-client 
-  become: true
-  roles:
-  - system-mount-nfs
-
-## General homelab config on hosts
-- name: Configure UFW 
+- name: Configure homelab wide NFS client mounts
   hosts: homelab
   become: true
   roles:
-  - system-ufw
+  - system-mount-nfs
 
 - name: Configure motd 
   hosts: homelab 
@@ -40,8 +33,21 @@
   roles:
   - docker-compose-pihole
 
+- name: Configure dockarr NFS client mounts
+  hosts: dockarr 
+  become: true
+  roles:
+  - system-mount-nfs
+
 - name: Configure Dockarr 
   hosts: dockarr 
   become: true
   roles:
   - dockarr
+
+## General homelab config on hosts
+- name: Configure UFW 
+  hosts: homelab
+  become: true
+  roles:
+  - system-ufw
