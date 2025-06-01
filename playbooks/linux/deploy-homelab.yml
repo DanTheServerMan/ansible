@@ -25,6 +25,12 @@
   roles:
   - docker-nginx-fileserver
 
+- name: Configure syncthing 
+  hosts: docker 
+  become: true
+  roles:
+  - docker-syncthing
+
 - name: Configure pihole container
   hosts: docker 
   vars_files:
@@ -33,7 +39,14 @@
   roles:
   - docker-pihole
 
+## General homelab config on hosts
+- name: Configure UFW 
+  hosts: homelab
+  become: true
+  roles:
+  - system-ufw
 
+## Configure Dockarr (This stuff is gitignore'd and safe to remove)
 - name: Configure dockarr NFS client mounts
   hosts: dockarr 
   become: true
@@ -45,10 +58,3 @@
   become: true
   roles:
   - dockarr
-
-## General homelab config on hosts
-- name: Configure UFW 
-  hosts: homelab
-  become: true
-  roles:
-  - system-ufw
