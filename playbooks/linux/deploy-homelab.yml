@@ -1,4 +1,13 @@
 ---
+## Configure local user account
+- name: Configure local users
+  hosts: homelab 
+  vars_files:
+   - vault/vault
+  become: true
+  roles:
+  - system-users
+
 ## NFS Configurations
 - name: Configure NFS server exports
   hosts: nfs-server 
