@@ -10,6 +10,7 @@
     group: '{{ ansible_ssh_user }}'
     mode: '0755'
   loop: "{{ pihole }}"
+  no_log: true # To avoid printing password to command line
 
 - name: Deploy Pi-hole container(s)
   community.docker.docker_container:
