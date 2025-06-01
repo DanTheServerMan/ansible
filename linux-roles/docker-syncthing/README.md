@@ -3,6 +3,8 @@ docker-syncthing
 
 Created to automate the deployment of SyncThing via Docker in my homelab. SyncThing is a fantastic tool to keep directories on different servers/hosts in sync. 
 
+It is intended for a single SyncThing folder, but you can easily modify vars/main.yml and the variables to support multiple.
+
 Requirements
 ------------
 
@@ -20,11 +22,11 @@ docker_container_data_directory: /docker
 syncthing_directory: /nginx-ansible/files
 syncthing_repo: /nginx
 ```
-docker_container_data_directory is the persistent storage configuration and where your containers configuration file will be stored.
+```docker_container_data_directory``` is the persistent storage configuration and where your containers configuration file will be stored.
 
-syncthing_directory is the underlying host volume that is passed through to the container, and in this case, intended to be sync'd.
+```syncthing_directory``` is the underlying host volume that is passed through to the container, and in this case, intended to be sync'd.
 
-In the UI, syncthing_repo is what path you'll put as the folder path. So, with the above, you'd put /nginx in Folder Path. It is the containers perspective of syncthing_directory.
+In the UI, ```syncthing_repo``` is what path you'll put as the folder path. So, with the above, you'd put ```/nginx``` in Folder Path. It is the containers perspective of ```syncthing_directory```.
 
 It will be used by the vars.yml file as follows:
 ```
