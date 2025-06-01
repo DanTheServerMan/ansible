@@ -1,7 +1,7 @@
-system-update
+system-server-nfs
 =========
 
-Created to automate the update of linux in my homelab. This can be followed up with my system-mount-nfs role to configure the NFS clients.
+Created to automate the creation of NFS servers in my homelab. This can be followed up with my system-mount-nfs role to configure the NFS clients.
 
 Requirements
 ------------
