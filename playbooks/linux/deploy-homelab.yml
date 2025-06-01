@@ -23,7 +23,7 @@
   hosts: docker 
   become: true
   roles:
-  - docker-nginx
+  - docker-nginx-fileserver
 
 - name: Configure pihole container
   hosts: docker 
