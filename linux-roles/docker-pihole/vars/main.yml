@@ -9,8 +9,6 @@ pihole:
       - "53:53/udp"
       - "80:80/tcp"
       - "443:443/tcp"
-    volumes:
-      - "{{ docker_container_data_directory }}/pihole:/etc/pihole"
     env:
       TZ: "UTC"
       FTLCONF_webserver_api_password: "{{ password }}"

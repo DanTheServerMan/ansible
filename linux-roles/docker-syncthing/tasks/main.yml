@@ -1,5 +1,26 @@
 #SPDX-License-Identifier: MIT-0
 ---
+- name: Creating {{ docker_container_config_directory }} directory
+  file: 
+    path: '{{ docker_container_config_directory }}/{{ item.name }}'
+    state: directory
+    recurse: true
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0640'
+  loop: "{{ syncthing }}"
+
+- name: Creating {{ docker_container_data_directory }} directory
+  file: 
+    path: '{{ docker_container_data_directory }}/{{ syncthing_directory }}'
+    state: directory
+    recurse: true
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0755'
+  loop: "{{ syncthing }}"
+
+
 # tasks file for docker-syncthing
 - name: Creating container
   docker_container:
@@ -7,8 +28,10 @@
     image: '{{ item.image }}'
     state: '{{ item.state }}'
     published_ports: '{{ item.published_ports }}'
-    volumes: '{{ item.volume }}'
     env: '{{ item.env }}'
     pull: '{{ item.pull }}'
+    volumes:
+    - '{{ docker_container_config_directory }}/{{ item.name }}:/config'
+    - '{{ docker_container_data_directory }}{{ syncthing_directory }}:/{{ syncthing_repo }}'
     restart_policy: '{{ item.restart_policy }}'
   loop: "{{ syncthing }}"

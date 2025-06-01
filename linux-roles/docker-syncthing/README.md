@@ -17,8 +17,8 @@ Role Variables
 This playbook requires you to define the base directory for the docker containers, and your SyncThing directory/repos. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
 
 ```
-docker_container_data_directory: /docker
-syncthing_directory: /nginx-ansible/files
+docker_container_data_directory: /nfs-containers/
+syncthing_directory: /nginx-ansible/
 syncthing_repo: /nginx
 ```
 ```docker_container_data_directory``` is the persistent storage configuration and where your containers configuration file will be stored.
@@ -34,9 +34,6 @@ syncthing:
     image: lscr.io/linuxserver/syncthing:latest
     state: started
     pull: true
-    volume:
-    - '{{ docker_container_data_directory }}/syncthing:/config'
-    - '{{ docker_container_data_directory }}{{ syncthing_directory }}:/{{ syncthing_repo }}'
     published_ports:
       - "8384:8384"
       - "22000:22000/tcp"
@@ -52,11 +49,8 @@ syncthing:
 The variable configuration will configure the following directory structure. 
 
 ```
-nginx-ansible/
-├── files
-│   ├── Files
-│   └── ISOs
-└── nginx.conf
+/nfs-containers/
+└── nginx-ansible
 ```
 
 Example Playbook

@@ -35,6 +35,14 @@
   - system-mount-nfs
 
 ## Configure specific services
+- name: Configure pihole container
+  hosts: docker 
+  vars_files:
+   - vault/vault
+  become: true
+  roles:
+  - docker-pihole
+  
 - name: Configure nginx fileserver
   hosts: docker 
   become: true
@@ -46,14 +54,6 @@
   become: true
   roles:
   - docker-syncthing
-
-- name: Configure pihole container
-  hosts: docker 
-  vars_files:
-   - vault/vault
-  become: true
-  roles:
-  - docker-pihole
 
 ## Configure Dockarr (This stuff is gitignore'd and safe to remove)
 - name: Configure dockarr NFS client mounts

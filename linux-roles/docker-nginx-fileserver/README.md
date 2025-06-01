@@ -5,8 +5,6 @@ Created to automate the deployment of a nginx file server via Docker. This can b
 
 An example nginx.conf does exist in templates/ that serves the purpose of the file server, accessible via host:8080
 
-The default directory exposed via the webserver has a root directory of /docker/nginx/files/. The root directory of /docker/ can be changed via the ```docker_container_data_directory``` variable. 
-
 Requirements
 ------------
 
@@ -16,39 +14,46 @@ Requirements
 Role Variables
 --------------
 
-This playbook requires you to define the base directory for the docker containers. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
-
-```
-docker_container_data_directory: /docker
-```
+This playbook requires you to define the base directory for the docker containers, and for the fileserver. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
 
 It will be used by the vars.yml file as follows:
 ```
-directories:
+docker_container_config_directory: /container_config/
+docker_container_data_directory: /nfs-containers/
+```
+
+These will be the subdirectores made under ```docker_container_data_directory/your_containers_name/```, and what your nginx webUI will show. It is an array so you can add as many directories as you'd like.
+```
+nginx_fileserver_directories:
   - name: ISOs
   - name: Files
-
+```
+This creates your container configuration, including the name used in the directory structure:
+```
 nginx:
-  - name: nginx
+  - name: nginx-ansible
     image: nginx:latest
     state: started
-    volume:
-    - '{{ docker_container_data_directory }}/nginx-ansible/files:/usr/share/nginx/html:ro'
-    - '{{ docker_container_data_directory }}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
-    recreate: true
+    pull: true
     published_ports:
       - "8080:80"
+    restart_policy: unless-stopped
 ```
 
+The variable configuration shown above will configure the following directory structure. 
 
-The variable configuration will configure the following directory structure. 
-
+This in your ```docker_container_config_directory```
 ```
-nginx-ansible/
-├── files
+/container_config/
+├── nginx-ansible
+│   └── nginx.conf
+```
+This in your ```docker_container_data_directory```
+```
+/nfs-containers/
+├── nginx-ansible
 │   ├── Files
-│   └── ISOs
-└── nginx.conf
+│   ├── ISOs
 ```
 
 Example Playbook

@@ -28,7 +28,7 @@ Or you could change 'vars:' on the playbook to this:
 This playbook requires you to define the base directory for the docker containers. You can provide these variables either as a vars_files, in the playbook, or using group_vars:
 
 ```
-docker_container_data_directory: /docker
+docker_container_config_directory: /container_config
 ```
 It will be used by the vars.yml file as follows:
 ```
@@ -37,15 +37,12 @@ pihole:
     image: "pihole/pihole:latest"
     state: started
     recreate: true
-    restart_policy: unless-stopped
     pull: yes
     published_ports:
       - "53:53/tcp"
       - "53:53/udp"
       - "80:80/tcp"
       - "443:443/tcp"
-    volumes:
-      - "{{ docker_container_data_directory }}/pihole:/etc/pihole"
     env:
       TZ: "UTC"
       FTLCONF_webserver_api_password: "{{ password }}"
@@ -54,6 +51,8 @@ pihole:
       - NET_ADMIN
       - SYS_TIME
       - SYS_NICE
+    restart_policy: unless-stopped
+
 ```
 
 Example Playbook

@@ -3,9 +3,6 @@ syncthing:
     image: lscr.io/linuxserver/syncthing:latest
     state: started
     pull: true
-    volume:
-    - '{{ docker_container_data_directory }}/syncthing:/config'
-    - '{{ docker_container_data_directory }}{{ syncthing_directory }}:/{{ syncthing_repo }}'
     published_ports:
       - "8384:8384"
       - "22000:22000/tcp"

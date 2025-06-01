@@ -1,31 +1,55 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for docker-nginx
-- name: Creating directories
+- name: Creating {{ docker_container_config_directory }} directory
   file: 
-    path: '{{ docker_container_data_directory }}/nginx-ansible/files/{{ item.name }}/'
+    path: '{{ docker_container_config_directory }}/{{ item.name }}'
     state: directory
     recurse: true
     owner: '{{ ansible_ssh_user }}'
     group: '{{ ansible_ssh_user }}'
-    mode: '0750'
-  loop: "{{ nginx_file_directories }}"
+    mode: '0640'
+  loop: "{{ nginx }}"
+
+- name: Creating {{ docker_container_data_directory }} directory
+  file: 
+    path: '{{ docker_container_data_directory }}/{{ item.name }}'
+    state: directory
+    recurse: true
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0755'
+  loop: "{{ nginx }}"
+
+- name: Creating nginx data subdirectories
+  file: 
+    path: '{{ docker_container_data_directory }}/{{ item.0.name }}/{{ item.1.name }}'
+    state: directory
+    recurse: true
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0755'
+  with_nested:
+    - "{{ nginx }}"
+    - "{{ nginx_file_directories }}"
 
 - name: Copying nginx.conf template 
   template: 
     src: nginx.conf.j2
-    dest: '{{ docker_container_data_directory }}/{{ item.name }}/nginx.conf'
+    dest: '{{ docker_container_config_directory }}/{{ item.name }}/nginx.conf'
     owner: '{{ ansible_ssh_user }}'
     group: '{{ ansible_ssh_user }}'
     mode: '0750'
   loop: "{{ nginx }}"
 
-- name: Creating container
+- name: Creating nginx container
   docker_container:
     name: '{{ item.name }}'
     image: '{{ item.image }}'
     state: '{{ item.state }}'
     published_ports: '{{ item.published_ports }}'
-    volumes: '{{ item.volume }}'
+    volumes:
+      - "{{ docker_container_config_directory }}/{{ item.name }}/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "{{ docker_container_data_directory }}/{{ item.name }}:/usr/share/nginx/html:ro"
     restart_policy: '{{ item.restart_policy }}'
   loop: "{{ nginx }}"
