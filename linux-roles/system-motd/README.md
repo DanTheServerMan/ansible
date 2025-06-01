@@ -1,26 +1,20 @@
 system-motd
 =========
 
-Created to automate the configuration of login banners in my homelab.
+Created to automate the configuration of login banners on Linux.
 
 Requirements
 ------------
 
-A Linux machine with network connectivity to both your device.
-
-This role was developed targeting Ubuntu 22.04 and has not been tested on a Red Hat-based system.
+- A Linux machine with network connectivity to both your device.
+- This role was developed targeting Ubuntu 22.04 and has not been tested on a Red Hat-based system.
 
 Role Variables
 --------------
  
-No variables are defined in the role or playbook.
+No variables are defined in the role or playbook. It will automatically use Ansible to identify and input the hostname and IP address into the motd.
 
-However, if you want to change the banner, modify the Jinja template in templates/
-
-Dependencies
-------------
-
-No dependencies
+However, if you want to change the banner itself, modify the Jinja template in templates/
 
 Example Playbook
 ----------------

@@ -1,16 +1,15 @@
 docker-syncthing
 =========
 
-Created to automate the deployment of SyncThing via Docker in my homelab. SyncThing is a fantastic tool to keep directories on different servers/hosts in sync. 
+Created to automate the deployment of SyncThing via Docker. SyncThing is a fantastic tool to keep directories on different servers/hosts in sync. It will automatically pull the latest container image and start the container.
 
 It is intended for a single SyncThing folder, but you can easily modify vars/main.yml and the variables to support multiple.
 
 Requirements
 ------------
 
-A Linux machine with network connectivity to both your device and the internet for package downloads.
-
-This role was developed targeting Ubuntu 24.04 and has not been tested on a Red Hat-based system.
+- A Linux machine with network connectivity to both your device and the internet for package downloads.
+- This role was developed targeting Ubuntu 24.04 and has not been tested on a Red Hat-based system.
 
 Role Variables
 --------------
@@ -59,11 +58,6 @@ nginx-ansible/
 │   └── ISOs
 └── nginx.conf
 ```
-
-Dependencies
-------------
-
-No dependencies
 
 Example Playbook
 ----------------

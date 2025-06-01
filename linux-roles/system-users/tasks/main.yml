@@ -20,4 +20,7 @@
     owner: root
     group: root
   loop: '{{ users }}'
-  when: item.sudo == true
+  when: 
+   - item.sudo == true
+   - item.state == 'present'
+

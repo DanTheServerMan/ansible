@@ -1,26 +1,26 @@
 docker-pihole
 =========
 
-Created to automate the deployment of a PiHole server via Docker in my homelab.
+Created to automate the deployment of a PiHole server via Docker. It will automatically pull the latest container image and start the container. It also sets the password for the webUI.
 
 Requirements
 ------------
 
-A Linux machine with network connectivity to both your device and the internet for package downloads.
-
-This role was developed targeting Ubuntu 24.04 and has not been tested on a Red Hat-based system.
+- A Linux machine with network connectivity to both your device and the internet for package downloads.
+- This role was developed targeting Ubuntu 24.04 and has not been tested on a Red Hat-based system.
 
 Role Variables
 --------------
 
-You also need to define the variable 'password' in some way. How you do that is up to you. Ultimately, the password is in plain-text in the compose-file.
+You also need to define the variable 'password' in some way. How you do that is up to you. This will be the password you use to sign into the webUI.
 
-You could use a vault ('ansible-vault create pihole_password_vault')
+You could use a vault ('ansible-vault create pihole_password_vault') to define the variable, then call the vault in the playbook:
 ```
   vars_files:
-    - pihole_password_vault 
+   - vault/vault
 ```
-Or you could change 'vars:' to this:
+
+Or you could change 'vars:' on the playbook to this:
 ```
   vars:
     password: testing123
@@ -30,7 +30,6 @@ This playbook requires you to define the base directory for the docker container
 ```
 docker_container_data_directory: /docker
 ```
-
 It will be used by the vars.yml file as follows:
 ```
 pihole:
@@ -56,11 +55,6 @@ pihole:
       - SYS_TIME
       - SYS_NICE
 ```
-
-Dependencies
-------------
-
-No dependencies
 
 Example Playbook
 ----------------

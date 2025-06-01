@@ -1,14 +1,13 @@
 system-ufw
 =========
 
-Created to automate the configuration of UFW firewalls in my homelab.
+Created to automate the configuration of a basic UFW firewall rules on Ubuntu. It will also start and enable the service.
 
 Requirements
 ------------
 
-A Linux machine with network connectivity to both your device.
-
-This role was developed targeting Ubuntu 22.04 and has not been tested on other versions.
+- A Linux machine with network connectivity to both your device.
+- This role was developed targeting Ubuntu 22.04 and has not been tested on other versions.
 
 Role Variables
 --------------
@@ -30,11 +29,6 @@ ufw_rules:
 ```
 
 The variables defined do not allow every UFW module variable to be changed, such as managing traffic based on its protocol (TCP/UDP). You could add a field in the variables file, and modify the task file if you'd like to have more control. 
-
-Dependencies
-------------
-
-No dependencies
 
 Example Playbook
 ----------------
