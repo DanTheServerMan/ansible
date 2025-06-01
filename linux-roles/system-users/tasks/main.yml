@@ -1,0 +1,23 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for system-users
+- name: Configure users, using SHA512 hash 
+  user:
+    name: '{{ item.username }}'
+    group: '{{ item.group }}'
+    password: "{{ item.password | password_hash('sha512') }}"
+    create_home: '{{ item.create_home }}'
+    shell: '{{ item.shell }}'
+    state: '{{ item.state }}'
+  loop: '{{ users }}'
+  no_log: true # To avoid printing password to command line
+
+- name: Configure user to allow sudo if requested
+  template:
+    src: ansible-sudo-config.j2
+    dest: /etc/sudoers.d/ansible-sudo-config
+    mode: '0644'
+    owner: root
+    group: root
+  loop: '{{ users }}'
+  when: item.sudo == true

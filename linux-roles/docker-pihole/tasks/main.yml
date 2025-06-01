@@ -22,5 +22,6 @@
     capabilities: "{{ item.capabilities }}"
     pull: "{{ item.pull }}"
   loop: "{{ pihole }}"
+  no_log: true # To avoid printing password to command line
 
 

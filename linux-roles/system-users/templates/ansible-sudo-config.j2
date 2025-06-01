@@ -1,0 +1,3 @@
+{% for user in users if user.sudo and user.state == 'present' %}
+{{ user.username }} {{ user.sudo_config }}
+{% endfor %}
