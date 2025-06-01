@@ -6,12 +6,18 @@
     path: '{{ docker_container_data_directory }}/{{ item.name }}/'
     state: directory
     recurse: true
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0755'
   loop: "{{ nginx }}"
 
 - name: Copying nginx.conf template 
   template: 
     src: nginx.conf.j2
     dest: '{{ docker_container_data_directory }}/{{ item.name }}/nginx.conf'
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0755'
   loop: "{{ nginx }}"
 
 - name: Creating container

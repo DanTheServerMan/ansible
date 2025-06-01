@@ -1,0 +1,22 @@
+pihole:
+  - name: pihole-ansible
+    image: "pihole/pihole:latest"
+    state: started
+    recreate: true
+    restart_policy: unless-stopped
+    pull: yes
+    published_ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    volumes:
+      - "{{ docker_container_data_directory }}/pihole:/etc/pihole"
+    env:
+      TZ: "UTC"
+      FTLCONF_webserver_api_password: "{{ password }}"
+      FTLCONF_dns_listeningMode: "all"
+    capabilities:
+      - NET_ADMIN
+      - SYS_TIME
+      - SYS_NICE

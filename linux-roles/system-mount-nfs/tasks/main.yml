@@ -17,6 +17,9 @@
   file:
     path: '{{ item.mount_point }}'
     state: directory
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0755'
   loop: '{{ nfs_servers }}'
 
 - name: Mount an NFS volume on the mountpoint
