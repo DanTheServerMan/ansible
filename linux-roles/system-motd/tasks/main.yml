@@ -11,10 +11,10 @@
 
 - name: Implement motd template file
   template:
-    src: ../templates/motd.j2
+    src: motd.j2
     dest: /etc/motd
     owner: '{{ ansible_ssh_user }}'
     group: '{{ ansible_ssh_user }}'
-    mode: '0644'
+    mode: '0640'
   notify:
     - restart_sshd

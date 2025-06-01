@@ -8,7 +8,7 @@
     recurse: true
     owner: '{{ ansible_ssh_user }}'
     group: '{{ ansible_ssh_user }}'
-    mode: '0644'
+    mode: '0750'
   loop: "{{ nginx_file_directories }}"
 
 - name: Copying nginx.conf template 
@@ -17,7 +17,7 @@
     dest: '{{ docker_container_data_directory }}/{{ item.name }}/nginx.conf'
     owner: '{{ ansible_ssh_user }}'
     group: '{{ ansible_ssh_user }}'
-    mode: '0644'
+    mode: '0750'
   loop: "{{ nginx }}"
 
 - name: Creating container

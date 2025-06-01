@@ -22,7 +22,7 @@ nfs_servers:
     nfs_opts: rw,sync,nfsvers=3
     nfs_state: mounted
     mount_point: /nfs-containers
-    mode: '0755'
+    mode: '0750'
 ```
 
 You can add in multiple servers to that file, using the example above, and it will loop through the array, mounting each one. 
