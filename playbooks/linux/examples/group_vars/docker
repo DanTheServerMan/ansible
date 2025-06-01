@@ -1,0 +1,48 @@
+# NFS Mounts
+nfs_servers:
+ -  nfs_server: 192.168.1.100
+    nfs_export: /volume1/NFS-Containers
+    nfs_opts: rw,sync,nfsvers=3
+    nfs_state: mounted
+    mount_point: /nfs-containers
+
+# Docker directories
+docker_container_data_directory: /container_config/
+
+# UFW Rules
+ufw_rules:
+ -  comment: Allow port 22 for SSH
+    src_host: any
+    dest_host: any
+    port: '22'
+    action: allow
+ -  comment: Allow port 2049 for NFS 
+    src_host: any
+    dest_host: any
+    port: '2049'
+    action: allow
+ -  comment: Allow port 443 for pihole
+    src_host: any
+    dest_host: any
+    port: '443'
+    action: allow
+ -  comment: Allow port 80 traffic for pihole
+    src_host: any
+    dest_host: any
+    port: '53'
+    action: allow
+ -  comment: Allow port 80 traffic for pihole
+    src_host: any
+    dest_host: any
+    port: '80'
+    action: allow
+ -  comment: Allow port 1053 traffic for pihole
+    src_host: any
+    dest_host: any
+    port: '1053'
+    action: allow
+ -  comment: Allow port 8080 traffic for nginx
+    src_host: any
+    dest_host: any
+    port: '8080'
+    action: allow
