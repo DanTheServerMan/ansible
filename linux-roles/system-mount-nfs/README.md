@@ -18,10 +18,11 @@ This playbook requires you to define the configuration as an array. You can prov
 ```
 nfs_servers:
  -  nfs_server: 192.168.1.100
-    nfs_export: /volume1/NFS-ISO
+    nfs_export: /volume1/NFS-Containers
     nfs_opts: rw,sync,nfsvers=3
     nfs_state: mounted
-    mount_point: /ISO/
+    mount_point: /nfs-containers
+    mode: '0755'
 ```
 
 You can add in multiple servers to that file, using the example above, and it will loop through the array, mounting each one. 

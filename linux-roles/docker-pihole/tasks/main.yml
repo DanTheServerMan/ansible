@@ -8,7 +8,7 @@
     recurse: true
     owner: '{{ ansible_ssh_user }}'
     group: '{{ ansible_ssh_user }}'
-    mode: '0755'
+    mode: '0644'
   loop: "{{ pihole }}"
   no_log: true # To avoid printing password to command line
 
@@ -22,6 +22,7 @@
     env: "{{ item.env }}"
     capabilities: "{{ item.capabilities }}"
     pull: "{{ item.pull }}"
+    restart_policy: '{{ item.restart_policy }}'
   loop: "{{ pihole }}"
   no_log: true # To avoid printing password to command line
 

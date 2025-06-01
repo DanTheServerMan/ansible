@@ -15,3 +15,4 @@ syncthing:
       PUID: "1000"
       PGID: "1000"
       TZ: "Etc/UTC"
+    restart_policy: unless-stopped

@@ -19,3 +19,4 @@ pihole:
       - NET_ADMIN
       - SYS_TIME
       - SYS_NICE
+    restart_policy: unless-stopped
