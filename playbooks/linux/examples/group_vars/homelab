@@ -1,0 +1,9 @@
+users:
+- username: ansible
+  password: '{{ user_password }}'
+  create_home: true
+  group: docker 
+  shell: /bin/bash
+  sudo: true
+  sudo_config: 'ALL=(ALL:ALL) NOPASSWD:ALL'
+  state: present

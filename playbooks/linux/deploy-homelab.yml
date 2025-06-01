@@ -8,6 +8,19 @@
   roles:
   - system-users
 
+## General homelab config on hosts
+- name: Configure UFW 
+  hosts: homelab
+  become: true
+  roles:
+  - system-ufw
+
+- name: Configure motd 
+  hosts: homelab 
+  become: true
+  roles:
+  - system-motd
+
 ## NFS Configurations
 - name: Configure NFS server exports
   hosts: nfs-server 
@@ -20,12 +33,6 @@
   become: true
   roles:
   - system-mount-nfs
-
-- name: Configure motd 
-  hosts: homelab 
-  become: true
-  roles:
-  - system-motd
 
 ## Configure specific services
 - name: Configure nginx fileserver
@@ -47,13 +54,6 @@
   become: true
   roles:
   - docker-pihole
-
-## General homelab config on hosts
-- name: Configure UFW 
-  hosts: homelab
-  become: true
-  roles:
-  - system-ufw
 
 ## Configure Dockarr (This stuff is gitignore'd and safe to remove)
 - name: Configure dockarr NFS client mounts
