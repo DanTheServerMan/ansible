@@ -1,0 +1,13 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for system-install-packages
+- name: Update apt cache
+  apt:
+    update_cache: true
+  when: ansible_facts['os_family'] in ["Debian", "Ubuntu"]
+
+- name: Installing requested packages
+  package:
+    name: '{{ item }}'
+    state: latest
+  loop: '{{ packages }}'

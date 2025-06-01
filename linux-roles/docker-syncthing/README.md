@@ -34,6 +34,8 @@ The variable configuration will configure the following directory structure.
 └── nginx-ansible
 ```
 
+Please note I have added a second volume for a second repo to the main.yml file, you can either define the variables or remove that line.
+
 Example Playbook
 ----------------
 

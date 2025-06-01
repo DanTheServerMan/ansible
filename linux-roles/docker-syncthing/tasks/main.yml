@@ -31,5 +31,6 @@
     volumes:
     - '{{ docker_container_config_directory }}/{{ item.name }}:/config'
     - '{{ syncthing_directory }}:/{{ syncthing_repo }}'
+    - '{{ syncthing_directory2 }}:/{{ syncthing_repo2 }}'
     restart_policy: '{{ item.restart_policy }}'
   loop: "{{ syncthing }}"

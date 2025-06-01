@@ -10,7 +10,6 @@
     group: '{{ ansible_ssh_user }}'
     mode: '0750'
   loop: "{{ pihole }}"
-  no_log: true # To avoid printing password to command line
 
 - name: Deploy Pi-hole container(s)
   community.docker.docker_container:
@@ -25,7 +24,6 @@
     volumes:
       - "{{ docker_container_config_directory }}/{{ item.name }}/:/etc/pihole"
     restart_policy: '{{ item.restart_policy }}'
-  no_log: true # To avoid printing password to command line
   loop: "{{ pihole }}"
 
 

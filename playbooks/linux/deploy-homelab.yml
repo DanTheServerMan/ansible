@@ -1,4 +1,11 @@
 ---
+# Install initial packages
+- name: Install packages
+  hosts: homelab 
+  become: true
+  roles:
+  - system-install-packages
+
 ## Configure local user account
 - name: Configure local users
   hosts: homelab 
