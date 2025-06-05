@@ -1,4 +1,4 @@
-storage-server-nfs (Work In Progress)
+storage-server-zfs (Work In Progress)
 =========
 
 NOTE: This role is currently a work in progress as an interesting side project.
@@ -14,7 +14,7 @@ Requirements
 Role Variables
 --------------
  
-There is one default variable in defaults/ , and that is ```wipe_disk: false```. If you want to wipe the disks for ZFS config, you should explicitly define this variable to be 'true'.
+There is one default variable in defaults/ , and that is ```wipe_disk: false```. If you want to wipe the disks before the ZFS config, you should explicitly define this variable to be 'true'.
 
 
 Example Playbook
