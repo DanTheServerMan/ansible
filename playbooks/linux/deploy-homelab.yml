@@ -30,10 +30,10 @@
 
 ## NFS Configurations
 - name: Configure NFS server exports
-  hosts: nfs-server 
+  hosts: nfs_server 
   become: true
   roles:
-  - system-server-nfs
+  - storage-server-nfs
 
 - name: Configure homelab wide NFS client mounts
   hosts: homelab
@@ -67,7 +67,7 @@
   hosts: dockarr 
   become: true
   roles:
-  - system-mount-nfs
+  - storage-mount-nfs
 
 - name: Configure Dockarr 
   hosts: dockarr 

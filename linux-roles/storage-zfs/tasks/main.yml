@@ -1,0 +1,24 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for system-nfs
+- name: Install zfsutils-linux  
+  package:
+    name: zfsutils-linux 
+    state: present
+
+- name: Wipe all disks provided 
+  command: wipefs -af /dev/{{ item.disk }}
+  loop: '{{ zfs_disks }}'
+  when: wipe_disk == "true"
+
+- name: Create ZRAID1
+  command: zpool create {{ zpool_name }} mirror {{ zfs_disks[0].disk }} {{ zfs_disks[1].disk }} -f
+  when: zfs_mode == "zraid1"
+ 
+- name: Create mount directory
+  file:
+    path: '{{ mountpoint }}'
+    state: directory
+
+- name: Mount zpool {{ zpool_name }} to directory {{ mountpoint }}
+  command: zfs set mountpoint={{ mountpoint }} {{zpool_name }}
