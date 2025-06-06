@@ -1,0 +1,12 @@
+minecraft:
+  - name: minecraft-ansible
+    image: "itzg/minecraft-server:latest"
+    state: started
+    recreate: true
+    pull: yes
+    published_ports:
+      - "25565:25565"
+    env:
+      EULA: "true"
+    tty: true
+    restart_policy: unless-stopped
