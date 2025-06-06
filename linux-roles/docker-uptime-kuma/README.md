@@ -1,7 +1,7 @@
-docker-minecraft
+docker-uptime-kuma
 =========
 
-Created to automate the deployment of a Minecraft server via Docker. It will automatically pull the latest container image and start the container. 
+Created to automate the deployment of a Uptime Kuma server via Docker. It will automatically pull the latest container image and start the container. 
 
 Requirements
 ------------
@@ -25,11 +25,11 @@ Note you'll need to define a vars_files for the vault, used as the password.
 
 Here is an example playbook, using the role, with the assumption the variables are provided in some way (ex. group_vars):
 ```
-- name: Deploy Minecraft container
-  hosts: minecraft 
+- name: Configure Uptime Kuma containers 
+  hosts: docker 
   become: true
   roles:
-  - docker-minecraft
+  - docker-uptime-kuma
 ```
 License 
 -------

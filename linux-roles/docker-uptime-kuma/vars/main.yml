@@ -1,0 +1,9 @@
+uptimekuma:
+  - name: uptimekuma-ansible
+    image: "louislam/uptime-kuma:latest"
+    state: started
+    recreate: true
+    pull: yes
+    published_ports:
+      - "3001:3001"
+    restart_policy: unless-stopped

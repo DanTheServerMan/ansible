@@ -1,82 +1,67 @@
 ---
-# Install initial packages
-- name: Install packages
-  hosts: homelab 
-  become: true
-  roles:
-  - system-install-packages
-
-## Configure local user account
-- name: Configure local users
+################################
+## Homelab Setup
+################################
+- name: Configure homelab host tasks
   hosts: homelab 
   vars_files:
    - vault/vault
   become: true
   roles:
   - system-users
-
-## General homelab config on hosts
-- name: Configure UFW 
-  hosts: homelab
-  become: true
-  roles:
-  - system-ufw
-
-- name: Configure motd 
-  hosts: homelab 
-  become: true
-  roles:
   - system-motd
+  - system-install-packages
+  - system-ufw
+  - storage-mount-nfs
+  tags:
+  -  system
 
-## NFS Configurations
+################################
+## NFS Server 
+################################
 - name: Configure NFS server exports
   hosts: nfs_server 
   become: true
   roles:
   - storage-server-nfs
+  tags:
+  -  nfs-server
 
-- name: Configure homelab wide NFS client mounts
-  hosts: homelab
-  become: true
-  roles:
-  - storage-mount-nfs
-
-## Configure specific services
-- name: Configure pihole container
+################################
+## Docker 
+################################
+- name: Configure Docker host containers 
   hosts: docker 
+  become: true
   vars_files:
    - vault/vault
-  become: true
-  roles:
-  - docker-pihole
-  
-- name: Configure nginx fileserver
-  hosts: docker 
-  become: true
   roles:
   - docker-nginx-fileserver
+  - docker-syncthing
+  - docker-pihole
+  - docker-uptime-kuma
+  tags:
+  -  docker
 
-- name: Deply Minecraft container
+################################
+## Minecraft 
+################################
+- name: Deploy Minecraft container
   hosts: minecraft 
   become: true
   roles:
   - docker-minecraft
+  tags:
+  -  minecraft 
 
-- name: Configure syncthing 
-  hosts: docker 
-  become: true
-  roles:
-  - docker-syncthing
-
-## Configure Dockarr (This stuff is gitignore'd and safe to remove)
+################################
+## Dockarr 
+################################
 - name: Configure dockarr NFS client mounts
   hosts: dockarr 
   become: true
   roles:
   - storage-mount-nfs
-
-- name: Configure Dockarr 
-  hosts: dockarr 
-  become: true
-  roles:
   - dockarr
+  tags:
+  -  dockarr
