@@ -1,0 +1,29 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for docker-pihole
+- name: Creating directories
+  file: 
+    path: '{{ docker_container_config_directory }}/{{ item.name }}'
+    state: directory
+    recurse: true
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0750'
+  loop: "{{ minecraft }}"
+
+- name: Deploy Minecraft container(s)
+  community.docker.docker_container:
+    name: "{{ item.name }}"
+    hostname: '{{ item.name }}'
+    image: "{{ item.image }}"
+    state: "{{ item.state }}"
+    published_ports: "{{ item.published_ports }}"
+    volumes: "{{ item.volumes }}"
+    env: "{{ item.env }}"
+    pull: "{{ item.pull }}"
+    volumes:
+      - "{{ docker_container_config_directory }}/{{ item.name }}/:/data"
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ minecraft }}"
+
+

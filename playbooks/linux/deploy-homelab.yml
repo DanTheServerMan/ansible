@@ -39,7 +39,7 @@
   hosts: homelab
   become: true
   roles:
-  - system-mount-nfs
+  - storage-mount-nfs
 
 ## Configure specific services
 - name: Configure pihole container
@@ -55,6 +55,12 @@
   become: true
   roles:
   - docker-nginx-fileserver
+
+- name: Deply Minecraft container
+  hosts: minecraft 
+  become: true
+  roles:
+  - docker-minecraft
 
 - name: Configure syncthing 
   hosts: docker 
