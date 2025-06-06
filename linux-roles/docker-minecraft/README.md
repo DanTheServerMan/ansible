@@ -32,7 +32,7 @@ Here is an example playbook, using the role, with the assumption the variables a
   roles:
   - docker-minecraft
 ```
-License
+License 
 -------
 
 BSD
