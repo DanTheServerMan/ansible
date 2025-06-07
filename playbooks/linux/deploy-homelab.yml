@@ -1,5 +1,16 @@
 ---
 ################################
+## NFS Server 
+################################
+- name: Configure NFS server exports
+  hosts: nfs_server 
+  become: true
+  roles:
+  - storage-server-nfs
+  tags:
+  -  nfs-server
+  
+################################
 ## Homelab Setup
 ################################
 - name: Configure homelab host tasks
@@ -15,17 +26,6 @@
   - storage-mount-nfs
   tags:
   -  system
-
-################################
-## NFS Server 
-################################
-- name: Configure NFS server exports
-  hosts: nfs_server 
-  become: true
-  roles:
-  - storage-server-nfs
-  tags:
-  -  nfs-server
 
 ################################
 ## Docker 
