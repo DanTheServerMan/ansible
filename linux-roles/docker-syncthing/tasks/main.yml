@@ -10,15 +10,6 @@
     mode: '0755'
   loop: "{{ syncthing }}"
 
-- name: Creating {{ docker_container_data_directory }} directory
-  file: 
-    path: '{{ docker_container_data_directory }}/{{ syncthing_directory }}'
-    state: directory
-    recurse: true
-    owner: '{{ ansible_ssh_user }}'
-    group: '{{ ansible_ssh_user }}'
-    mode: '0755'
-
 # tasks file for docker-syncthing
 - name: Creating container
   docker_container:
