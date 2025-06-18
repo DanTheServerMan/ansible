@@ -1,7 +1,7 @@
 dockarr
 =========
 
-Created to automate the deployment of my media via Docker in my homelab.
+Created to automate the deployment of my Linux ISOs downloads via Docker in my homelab.
 
 Requirements
 ------------
@@ -18,27 +18,8 @@ Variables were split between the vars file and playbook to allow easy tweaking o
 The following vars in the playbook are required:
 ```
   vars:
-    dockarr_container_directory: /dockarr/
-```
-
-And the following vars/dockarr-vars.yml is required. 
-
-```
-sonarr:
-  - name: sonarr
-    image: lscr.io/linuxserver/sonarr:latest
-    state: started
-    volume:
-    - '{{ docker_container_directory }}/sonarr:/config'
-    - '{{ docker_container_directory }}/tvshows:/tv'
-    - '{{ docker_container_directory }}/downloads:/downloads'
-    recreate: true
-    published_ports:
-      - "8989:8989"
-    environment:
-      PUID: "1000"
-      PGID: "1000" 
-      TZ: "Etc/UTC"
+    dockarr_container_config_directory: /dockarr/
+    dockarr_container_data_directory: /nfs/
 ```
 
 Dependencies
@@ -55,9 +36,8 @@ Here is an example playbook, using the role, with variables in place:
   hosts: dockarr 
   become: true
   vars:
-    dockarr_container_directory: /dockarr/
-  vars_files:
-    - vars/dockarr-vars.yml
+    dockarr_container_config_directory: /dockarr/
+    dockarr_container_data_directory: /nfs/
   roles:
   - dockarr
 ```
