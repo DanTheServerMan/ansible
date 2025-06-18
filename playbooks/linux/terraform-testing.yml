@@ -1,0 +1,73 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Ubuntu block
+  block:
+    - name: Check GPT mismatch 
+      command: sgdisk -e /dev/sda 
+
+    - name: Check for disk size changes
+      command: echo 1 > /sys/class/block/sda/device/rescan
+
+    - name: Extend /dev/sda3
+      parted:
+        device: /dev/sda
+        number: 3
+        part_end: "100%"
+        resize: true
+        state: present
+        label: gpt 
+      
+    - name: Resize /dev/sda3 pv 
+      lvg: 
+        vg: vg0 
+        pvs: /dev/sda3 
+        pvresize: true 
+
+    - name: Extend tmp lv to be 10G 
+      lvol: 
+        vg: vg0 
+        lv: lv-tmp 
+        size: 10g 
+        resizefs: true 
+      
+    - name: Extend root lv to use the remaining disk 
+      lvol: 
+        vg: vg0 
+        lv: lv-root 
+        size: +100%FREE
+        resizefs: true 
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+#SPDX-License-Identifier: MIT-0
+---
+- name: RHEL block
+  block:
+    - name: Check GPT mismatch 
+      command: sgdisk -e /dev/sda 
+
+    - name: Check for disk size changes
+      command: echo 1 > /sys/class/block/sda/device/rescan
+
+    - name: Check for disk size changes
+      command: parted --script /dev/sda3 resizepart 3 100%
+
+    - name: Resize /dev/sda3 pv 
+      lvg: 
+        vg: vg0 
+        pvs: /dev/sda3 
+        pvresize: true 
+
+    - name: Extend tmp lv to be 10G 
+      lvol: 
+        vg: vg0 
+        lv: lv-tmp 
+        size: 10g 
+        resizefs: true 
+      
+    - name: Extend root lv to use the remaining disk 
+      lvol: 
+        vg: vg0 
+        lv: lv-root 
+        size: +100%FREE
+        resizefs: true 
+  when: ansible_facts['distribution'] == "AlmaLinux"

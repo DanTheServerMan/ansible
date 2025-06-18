@@ -1,0 +1,73 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for dockarr
+- name: Creating sonarr container
+  community.docker.docker_container:
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    state: '{{ item.state }}'
+    published_ports: '{{ item.published_ports }}'
+    volumes: '{{ item.volume }}'
+    env: '{{ item.env }}'
+    pull: '{{ item.pull }}'
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ sonarr }}"
+
+- name: Creating radarr container
+  community.docker.docker_container:
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    state: '{{ item.state }}'
+    published_ports: '{{ item.published_ports }}'
+    volumes: '{{ item.volume }}'
+    env: '{{ item.env }}'
+    pull: '{{ item.pull }}'
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ radarr }}"
+
+- name: Creating prowlarr container
+  community.docker.docker_container:
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    state: '{{ item.state }}'
+    published_ports: '{{ item.published_ports }}'
+    volumes: '{{ item.volume }}'
+    env: '{{ item.env }}'
+    pull: '{{ item.pull }}'
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ prowlarr }}"
+
+- name: Creating flaresolvarr container
+  community.docker.docker_container:
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    state: '{{ item.state }}'
+    published_ports: '{{ item.published_ports }}'
+    volumes: '{{ item.volume }}'
+    pull: '{{ item.pull }}'
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ flaresolvarr }}"
+
+- name: Creating deluge container
+  community.docker.docker_container:
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    state: '{{ item.state }}'
+    published_ports: '{{ item.published_ports }}'
+    volumes: '{{ item.volume }}'
+    env: '{{ item.env }}'
+    pull: '{{ item.pull }}'
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ deluge }}"
+
+- name: Creating jellyfin container
+  community.docker.docker_container:
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    state: '{{ item.state }}'
+    published_ports: '{{ item.published_ports }}'
+    volumes: '{{ item.volume }}'
+    env: '{{ item.env }}'
+    pull: '{{ item.pull }}'
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ jellyfin }}"

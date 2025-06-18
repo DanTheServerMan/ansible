@@ -1,0 +1,96 @@
+
+# Docker containers
+sonarr:
+  - name: sonarr-ansible
+    image: lscr.io/linuxserver/sonarr:latest
+    state: started
+    pull: true
+    volume:
+    - '{{ dockarr_container_config_directory }}/sonarr:/config'
+    - '{{ dockarr_container_data_directory }}/tvshows:/tv'
+    - '{{ dockarr_container_data_directory }}/downloads:/downloads'
+    published_ports:
+      - "8989:8989"
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Etc/UTC"
+    restart_policy: unless-stopped
+
+radarr:
+  - name: radarr-ansible
+    image: lscr.io/linuxserver/radarr:latest
+    state: started
+    pull: true
+    volume:
+    - '{{ dockarr_container_config_directory }}/radarr:/config'
+    - '{{ dockarr_container_data_directory }}/movies:/movies'
+    - '{{ dockarr_container_data_directory }}/downloads:/downloads'
+    published_ports:
+      - "7878:7878"
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Etc/UTC"
+    restart_policy: unless-stopped
+
+prowlarr:
+  - name: prowlarr-ansible
+    image: lscr.io/linuxserver/prowlarr:latest
+    state: started
+    pull: true
+    volume:
+    - '{{ dockarr_container_config_directory }}/prowlarr:/config'
+    published_ports:
+      - "9696:9696"
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Etc/UTC"
+    restart_policy: unless-stopped
+
+flaresolvarr:
+  - name: flaresolvarr-ansible
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    state: started
+    pull: true
+    volume:
+    - '{{ dockarr_container_config_directory }}/flaresolvarr:/config'
+    published_ports:
+      - "8191:8191"
+    restart_policy: unless-stopped
+
+deluge:
+  - name: deluge-ansible
+    image: lscr.io/linuxserver/deluge:latest
+    state: started
+    pull: true
+    volume:
+    - '{{ dockarr_container_config_directory }}/deluge:/config'
+    - '{{ dockarr_container_data_directory }}/downloads:/downloads'
+    published_ports:
+      - "8112:8112"
+      - "6881:6881"
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Etc/UTC"
+    restart_policy: unless-stopped
+
+jellyfin:
+  - name: jellyfin-ansible
+    image: lscr.io/linuxserver/jellyfin:latest
+    state: started
+    pull: true
+    volume:
+    - '{{ dockarr_container_config_directory }}/jellyfin:/config'
+    - '{{ dockarr_container_data_directory }}/movies:/movies'
+    - '{{ dockarr_container_data_directory }}/tvshows:/tv'
+    published_ports:
+      - "8096:8096"
+      - "8920:8920"
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Etc/UTC"
+    restart_policy: unless-stopped

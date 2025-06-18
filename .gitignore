@@ -1,5 +1,4 @@
 .DS_Store
-dockarr/
 playbooks/*/*vars*
 playbooks/*/*vault*
 playbooks/*/*inventory*
