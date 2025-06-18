@@ -38,8 +38,6 @@
         resizefs: true 
   when: ansible_facts['distribution'] == "Ubuntu"
 
-#SPDX-License-Identifier: MIT-0
----
 - name: RHEL block
   block:
     - name: Check GPT mismatch 
