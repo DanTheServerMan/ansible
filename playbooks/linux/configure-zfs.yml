@@ -1,6 +1,0 @@
----
-- name: Configure zfs
-  hosts: pi 
-  become: true
-  roles:
-  - system-zfs

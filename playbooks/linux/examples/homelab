@@ -1,0 +1,80 @@
+# This is meant to be an example group_vars for homelab hosts
+docker_container_config_directory: /nfs-containers/config/
+docker_container_data_directory: /nfs-containers/data/
+nginx_repo_directory: /nfs-iso/
+syncthing_directory: /nginx-ansible/
+syncthing_repo: /nginx
+ufw_rules:
+ -  comment: Allow SSH
+    src_host: any
+    dest_host: any
+    port: '22'
+    action: allow
+ -  comment: Allow HTTPS
+    src_host: any
+    dest_host: any
+    port: '443'
+    action: allow
+ -  comment: Allow NFS
+    src_host: any
+    dest_host: any
+    port: '2049'
+    action: allow
+ -  comment: Allow pihole
+    src_host: any
+    dest_host: any
+    port: '443'
+    action: allow
+ -  comment: Allow syncthing
+    src_host: any
+    dest_host: any
+    port: '8384'
+    action: allow
+ -  comment: Allow syncthing
+    src_host: any
+    dest_host: any
+    port: '22000'
+    action: allow
+ -  comment: Allow syncthing
+    src_host: any
+    dest_host: any
+    port: '21027'
+    action: allow
+ -  comment: Allow pihole
+    src_host: any
+    dest_host: any
+    port: '53'
+    action: allow
+ -  comment: Allow pihole
+    src_host: any
+    dest_host: any
+    port: '80'
+    action: allow
+ -  comment: Allow pihole
+    src_host: any
+    dest_host: any
+    port: '1053'
+    action: allow
+ -  comment: Allow pihole
+    src_host: any
+    dest_host: any
+    port: '8080'
+    action: allow
+packages:
+  - docker.io
+users:
+- username: dantheserverman
+  password: '{{ user_password }}'
+  create_home: true
+  group: docker 
+  shell: /bin/bash
+  sudo: true
+  sudo_config: 'ALL=(ALL:ALL) NOPASSWD:ALL'
+  state: present
+nfs_servers:
+ -  nfs_server: 192.168.1.100
+    nfs_export: /volume1/NFS-Containers
+    nfs_opts: rw,sync,nfsvers=3
+    nfs_state: mounted
+    mount_point: /nfs-containers
+    mode: '0750'

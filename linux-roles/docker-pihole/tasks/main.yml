@@ -11,6 +11,18 @@
     mode: '0750'
   loop: "{{ pihole }}"
 
+- name: Pull docker image prior to DNS config
+  community.docker.docker_image:
+    name: "{{ item.image }}"
+    source: pull
+  loop: "{{ pihole }}"
+
+- name: Stop systemd-resolved to prevent port 53 conflict
+  systemd:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+
 - name: Deploy Pi-hole container(s)
   community.docker.docker_container:
     name: "{{ item.name }}"
@@ -21,7 +33,6 @@
     volumes: "{{ item.volumes }}"
     env: "{{ item.env }}"
     capabilities: "{{ item.capabilities }}"
-    pull: "{{ item.pull }}"
     volumes:
       - "{{ docker_container_config_directory }}/{{ item.name }}/:/etc/pihole"
     restart_policy: '{{ item.restart_policy }}'

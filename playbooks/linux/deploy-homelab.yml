@@ -1,4 +1,15 @@
----
+################################
+## Post-Terraform Disk Expansion
+################################
+- name: Post-Terraform Disk Expansion
+  hosts: new-terraform-hosts
+  become: true
+  roles:
+  - system-expand-disks
+  tags:
+  -  new-terraform-hosts
+  
+
 ################################
 ## NFS Server 
 ################################
@@ -53,6 +64,17 @@
   - docker-minecraft
   tags:
   -  minecraft 
+
+################################
+## OpenWebUI 
+################################
+- name: Deploy OpenWebUI container
+  hosts: openwebui 
+  become: true
+  roles:
+  - docker-openwebui-ollama
+  tags:
+  -  openwebui 
 
 ################################
 ## Dockarr 

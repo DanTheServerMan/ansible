@@ -1,7 +1,7 @@
 .DS_Store
 playbooks/*/*vars*
 playbooks/*/*vault*
-playbooks/*/*inventory*
-playbooks/*/*.cfg*
 playbooks/*/*sensitive*
 incomplete*
+ansible.cfg
+inventory
