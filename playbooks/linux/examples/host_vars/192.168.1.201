@@ -1,0 +1,4 @@
+# This is an example host_vars file for a specific host
+# Docker Directories
+docker_container_config_directory: /nfs-containers/docker-dev-2/config/
+docker_container_datadirectory: /nfs-containers/docker-dev-2/data/

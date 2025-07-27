@@ -9,7 +9,6 @@
   tags:
   -  new-terraform-hosts
   
-
 ################################
 ## NFS Server 
 ################################
@@ -34,6 +33,7 @@
   - system-motd
   - system-install-packages
   - system-ufw
+  - system-weekly-cron
   - storage-mount-nfs
   tags:
   -  system
@@ -84,6 +84,7 @@
   become: true
   roles:
   - storage-mount-nfs
+  - system-install-mullvad
   - dockarr
   tags:
   -  dockarr

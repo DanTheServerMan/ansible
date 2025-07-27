@@ -1,9 +1,52 @@
 # This is meant to be an example group_vars for homelab hosts
-docker_container_config_directory: /nfs-containers/config/
-docker_container_data_directory: /nfs-containers/data/
-nginx_repo_directory: /nfs-iso/
-syncthing_directory: /nginx-ansible/
-syncthing_repo: /nginx
+
+# Nginx directory
+nginx_repo_directory: /nfs-iso/template
+
+# SyncThing
+syncthing_directory: /repo
+syncthing_repo: repo
+
+# Packges to install
+packages:
+  - docker.io
+
+# Cronjobs
+cronjobs:
+- name: 'Auto upgrade, every Sunday at 7:00am UTC'
+  minute: '0'
+  hour: '7'
+  weekday: '0'
+  month: '*'
+  job: 'sudo apt update && sudo apt upgrade -y && sudo reboot'
+
+# Users
+users:
+- username: dantheserverman
+  password: '{{ user_password }}'
+  create_home: true
+  group: docker 
+  shell: /bin/bash
+  sudo: true
+  sudo_config: 'ALL=(ALL:ALL) NOPASSWD:ALL'
+  state: present
+
+# NFS Mounts
+nfs_servers:
+ -  nfs_server: 192.168.1.100
+    nfs_export: /volume1/NFS-Containers
+    nfs_opts: rw,sync,nfsvers=3
+    nfs_state: mounted
+    mount_point: /nfs-containers
+    mode: '0750'
+ -  nfs_server: 192.168.1.100
+    nfs_export: /volume1/NFS-ISO
+    nfs_opts: rw,sync,nfsvers=3
+    nfs_state: mounted
+    mount_point: /nfs-iso
+    mode: '0740'
+    
+# UFW Rules
 ufw_rules:
  -  comment: Allow SSH
     src_host: any
@@ -60,21 +103,3 @@ ufw_rules:
     dest_host: any
     port: '8080'
     action: allow
-packages:
-  - docker.io
-users:
-- username: dantheserverman
-  password: '{{ user_password }}'
-  create_home: true
-  group: docker 
-  shell: /bin/bash
-  sudo: true
-  sudo_config: 'ALL=(ALL:ALL) NOPASSWD:ALL'
-  state: present
-nfs_servers:
- -  nfs_server: 192.168.1.100
-    nfs_export: /volume1/NFS-Containers
-    nfs_opts: rw,sync,nfsvers=3
-    nfs_state: mounted
-    mount_point: /nfs-containers
-    mode: '0750'

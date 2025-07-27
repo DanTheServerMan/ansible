@@ -23,6 +23,12 @@
     state: stopped
     enabled: false
 
+- name: Modify /etc/resolv.conf to forward DNS requests to 127.0.0.1
+  lineinfile:
+    path: /etc/resolv.conf
+    regexp: '^nameserver'
+    line: nameserver 127.0.0.1
+
 - name: Deploy Pi-hole container(s)
   community.docker.docker_container:
     name: "{{ item.name }}"

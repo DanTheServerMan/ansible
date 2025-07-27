@@ -1,3 +1,8 @@
+# Docker Directories
+dockarr_container_config_directory: /nfs-containers/dockarr-dev/config/
+dockarr_container_data_directory: /nfs-containers/dockarr-dev/config/
+
+# NFS Mounts
 nfs_servers:
  -  nfs_server: 192.168.1.100
     nfs_export: /volume1/NFS-Media
@@ -5,6 +10,8 @@ nfs_servers:
     nfs_state: mounted
     mount_point: /nfs-media
     mode: '0740'
+
+# UFW Rules
 ufw_rules:
  -  comment: Allow sonarr
     src_host: any
@@ -31,5 +38,3 @@ ufw_rules:
     dest_host: any
     port: '8191'
     action: allow
-dockarr_container_config_directory: /home/dantheserverman/config/
-dockarr_container_data_directory: /home/dantheserverman/data/
