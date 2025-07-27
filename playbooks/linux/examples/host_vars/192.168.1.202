@@ -2,6 +2,10 @@
 dockarr_container_config_directory: /nfs-containers/dockarr-dev/config/
 dockarr_container_data_directory: /nfs-containers/dockarr-dev/config/
 
+# Mullvad Config
+mullvad_account: 123456789
+mullvad_location: us atl
+
 # NFS Mounts
 nfs_servers:
  -  nfs_server: 192.168.1.100
