@@ -17,7 +17,7 @@
     source: pull
   loop: "{{ pihole }}"
 
-- name: Stop systemd-resolved to prevent port 53 conflict
+- name: Stop systemd-resolved to prevent pihole and systemd-resolved port 53 conflict
   systemd:
     name: systemd-resolved
     state: stopped
