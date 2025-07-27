@@ -1,0 +1,40 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for system-install-packages
+- name: Ubuntu block
+  block:
+    - name: Add Mullvad Signing Key
+      ansible.builtin.get_url:
+        url: https://repository.mullvad.net/deb/mullvad-keyring.asc
+        dest: /usr/share/keyrings/mullvad-keyring.asc
+
+    - name: Add Mullvad Repo
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/mullvad-keyring.asc arch=amd64] https://repository.mullvad.net/deb/stable stable main
+        state: present
+        filename: mullvad-repo
+
+- name: Installing Mullvad
+  package:
+    name: mullvad-vpn
+    state: latest
+
+- name: See if Mullvad account is already logged install
+  command: mullvad account get 
+  register: account_status
+
+- name: Sign into Mullvad
+  command: 'mullvad account login {{ mullvad_account }}'
+  when: account_status.stdout == "Not logged in on any account"
+
+- name: Set Mullvad login
+  command: 'mullvad relay set location {{ mullvad_location }}'
+
+- name: Enable LAN Access
+  command: 'mullvad lan set allow'
+
+- name: Enable auto-VPN on boot
+  command: 'mullvad auto-connect set on'
+
+- name: Connect to VPN
+  command: 'mullvad connect'

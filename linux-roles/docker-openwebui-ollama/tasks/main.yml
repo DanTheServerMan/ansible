@@ -1,0 +1,25 @@
+# tasks file for docker-openwebui-ollama
+- name: Creating directories
+  file: 
+    path: '{{ docker_container_config_directory }}/{{ item.name }}'
+    state: directory
+    recurse: true
+    owner: '{{ ansible_ssh_user }}'
+    group: '{{ ansible_ssh_user }}'
+    mode: '0750'
+  loop: "{{ openwebui }}"
+
+- name: Deploy OpenWebUI container(s)
+  community.docker.docker_container:
+    name: "{{ item.name }}"
+    hostname: '{{ item.name }}'
+    image: "{{ item.image }}"
+    state: "{{ item.state }}"
+    published_ports: "{{ item.published_ports }}"
+    volumes: "{{ item.volumes }}"
+    pull: "{{ item.pull }}"
+    volumes:
+      - "{{ docker_container_config_directory }}/{{ item.name }}/:/app/backend/data"
+      - "{{ docker_container_config_directory }}/{{ item.name }}/:/root/.ollama"
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ openwebui }}"

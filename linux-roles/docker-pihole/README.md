@@ -3,8 +3,7 @@ docker-pihole
 
 Created to automate the deployment of a PiHole server via Docker. It will automatically pull the latest container image and start the container. It also sets the password for the webUI.
 
-**NOTE**: Right now, this needs some pre-req setup. You must disable whatever service is using port 53, likely your default DNS service. You also should disable it after pulling the image, then you can remove '    pull: "{{ item.pull }}"' from the task.yml. Basically, the problem is you have to disable your DNS service to start the container, but the pull: true requires it to have the ability to use DNS to check for the latest image - so theres a bit of a chicken and the egg. On my to-do-list to get it added to the role.
-
+**NOTE**: PiHole needs to bind to port 53, which conflicts with any proccess, like systemd-resolved, that is currently handling DNS. This role will disable this systemd-resolved process, but this then causes any DNS resolutions to fail. To fix this, I've set /etc/resolv.conf to point to 127.0.0.1 so PiHole can service host requests. This is an assumption that you don't have another DNS server on the network, since you're deploying one. If you do NOT have systemd-resolved, or another process, you may need to modify the role.
 
 Requirements
 ------------
@@ -22,7 +21,7 @@ This playbook requires you to define the base directory for the docker container
 docker_container_config_directory: /container-config
 ```
 
-You also need to define the variable 'password' in some way. How you do that is up to you. This will be the password you use to sign into the webUI.
+You also need to define the variable 'pihole_password' in some way. How you do that is up to you. This will be the password you use to sign into the webUI.
 
 You could use a vault ('ansible-vault create pihole_password_vault') to define the variable, then call the vault in the playbook:
 ```
@@ -33,7 +32,7 @@ You could use a vault ('ansible-vault create pihole_password_vault') to define t
 Or you could change 'vars:' on the playbook to this:
 ```
   vars:
-    password: testing123
+    pihole_password: testing123
 ```
 
 Example Playbook

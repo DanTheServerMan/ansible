@@ -11,7 +11,7 @@ pihole:
       - "443:443/tcp"
     env:
       TZ: "UTC"
-      FTLCONF_webserver_api_password: "{{ password }}"
+      FTLCONF_webserver_api_password: "{{ pihole_password }}"
       FTLCONF_dns_listeningMode: "all"
     capabilities:
       - NET_ADMIN

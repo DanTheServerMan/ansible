@@ -1,0 +1,44 @@
+# Docker Directories
+dockarr_container_config_directory: /nfs-containers/dockarr-dev/config/
+dockarr_container_data_directory: /nfs-containers/dockarr-dev/config/
+
+# Mullvad Config
+mullvad_account: 123456789
+mullvad_location: us atl
+
+# NFS Mounts
+nfs_servers:
+ -  nfs_server: 192.168.1.100
+    nfs_export: /volume1/NFS-Media
+    nfs_opts: rw,sync,nfsvers=3
+    nfs_state: mounted
+    mount_point: /nfs-media
+    mode: '0740'
+
+# UFW Rules
+ufw_rules:
+ -  comment: Allow sonarr
+    src_host: any
+    dest_host: any
+    port: '8989'
+    action: allow
+ -  comment: Allow radarr
+    src_host: any
+    dest_host: any
+    port: '7878'
+    action: allow
+ -  comment: Allow jellyfin
+    src_host: any
+    dest_host: any
+    port: '8096'
+    action: allow
+ -  comment: Allow deluge
+    src_host: any
+    dest_host: any
+    port: '8112'
+    action: allow
+ -  comment: Allow flaresolvarr
+    src_host: any
+    dest_host: any
+    port: '8191'
+    action: allow

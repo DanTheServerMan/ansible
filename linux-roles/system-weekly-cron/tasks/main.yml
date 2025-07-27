@@ -1,0 +1,8 @@
+- name: Setting cronjobs
+  cron: 
+    name: "{{ item.name }}"
+    minute: "{{ item.minute }}"
+    hour: "{{ item.hour }}"
+    weekday: "{{ item.weekday }}"
+    job: "{{ item.job }}"
+  loop: "{{ cronjobs }}"
