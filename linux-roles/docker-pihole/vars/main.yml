@@ -13,6 +13,8 @@ pihole:
       TZ: "UTC"
       FTLCONF_webserver_api_password: "{{ password }}"
       FTLCONF_dns_listeningMode: "all"
+    dns:
+      -  "1.1.1.1"
     capabilities:
       - NET_ADMIN
       - SYS_TIME

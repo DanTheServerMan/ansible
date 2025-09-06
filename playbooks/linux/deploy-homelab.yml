@@ -38,8 +38,8 @@
   roles:
   - docker-nginx-fileserver
   - docker-syncthing
-  - docker-pihole
   - docker-uptime-kuma
+  - docker-pihole
   tags:
   -  docker
 
