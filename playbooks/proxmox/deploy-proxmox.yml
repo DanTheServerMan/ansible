@@ -5,9 +5,10 @@
   vars_files:
    - vault/vault
   roles:
-  - proxmox-nosub-repo
-  - proxmox-install-packages 
-  - proxmox-single-host-update
   - proxmox-motd
-  - proxmox-chronyc
+  - proxmox-time
   - proxmox-nfs
+  - proxmox-dns
+  - proxmox-single-host-update
+  - proxmox-install-packages 
+

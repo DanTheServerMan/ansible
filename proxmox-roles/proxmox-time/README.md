@@ -1,21 +1,19 @@
-proxmox-nfs
+proxmox-time
 =========
 
-Created to automate the configuration of NFS storage on ProxMox using the API.
+Created to automate the configuration of time on ProxMox.
 
-While you can use blockinfile to directly manage /etv/pve/storage.cfg, in my experience, this started to have issues when having multiple datastores. Plus, I wanted to see what using the API would look like. So, you will have to handle credentials to use this module. See below.
-
-**NOTE**: At the time of writing, if the NFS configuration already exists, the playbook will complete but return large failure code output for that specific task - this is why I print out a cleaner message afterwards so you can confirm the status of the configuration.
+I noticed, perhaps ancedotally on 9.0.6, that setting the timezone for the OS did not reflect the timezone available in the UI (under Host > System > Time) - I have since added an API call to set it via the API *in addition* to the host OS.
 
 Requirements
 ------------
 
-- A ProxMox installation with network connectivity to your device. It also assumes that there is a NAS on your network with properly configured exports.
+- A ProxMox installation with network connectivity to your device.
 - This role was developed targeting PVE 9.0.6.
 
 Role Variables
 --------------
- 
+
 You need to define two variables for logging in to generate a token before using the API. I recommend, and use, ansible-vault. The variables you need to define is:
 ```
 username: [YOUR_USER]@[DOMAIN]
@@ -33,14 +31,13 @@ In your playbook, you can specify the vault:
 ```
 
 Besides the password, this playbook requires you to define the configuration as an array. You can provide these variables either as a vars_files, or using group_vars:
+```
+ntp_servers:
+  - name: 0.us.pool.ntp.org
+timezone: 'UTC'
+```
+Note that iburst is defined statically in the Jinja template. If you don't want it, you can modify the template.
 
-```
-nfs_servers:
-  - nfs_storage: # Name of the datastore that will be shown in the UI
-    nfs_path: # NFS export path on the NFS server
-    nfs_ip: # NFS server IP
-    nfs_content: # Content available on the datastore, options are under the 'content' section: https://pve.proxmox.com/wiki/Storage
-```
 
 Example Playbook
 ----------------
@@ -53,7 +50,7 @@ Here is an example playbook, using the role, specifying the vault, and with the 
   vars_files:  
    - vars/pve-vault # Or your other file
   roles:
-  - proxmox-nfs
+  - proxmox-time
 ```
 License
 -------
