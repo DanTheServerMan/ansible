@@ -10,7 +10,7 @@ Requirements
 ------------
 
 - A ProxMox installation with network connectivity to your device.
-- This role was developed targeting PVE 8.4.
+- This role was developed targeting PVE 9.0.6.
 
 Role Variables
 --------------

@@ -1,15 +1,11 @@
-#SPDX-License-Identifier: MIT-0
----
-# tasks file for motd
-
-- name: Removing 10-uname to prevent kernel logging info from appearing in the MOTD
+- name: Removing 10-uname 
   file:
     path: /etc/update-motd.d/10-uname
     state: absent
   notify:
     - restart_sshd
 
-- name: Implement motd template file
+- name: Implement MOTD Template File
   template:
     src: motd.j2
     dest: /etc/motd

@@ -14,31 +14,18 @@
     pve_ticket: "{{ auth_response.json.data.ticket }}"
     pve_csrf: "{{ auth_response.json.data.CSRFPreventionToken }}"
 
-- name: Mount NFS Storage
+- name: Configure DNS Servers Using PUT
   uri:
-    url: "https://{{ inventory_hostname }}:8006/api2/json/storage"
-    method: POST
+    url: "https://{{ inventory_hostname }}:8006/api2/json/nodes/{{ ansible_hostname }}/dns"
+    method: PUT
     headers:
       Cookie: "PVEAuthCookie={{ pve_ticket }}"
       CSRFPreventionToken: "{{ pve_csrf }}"
     body_format: form-urlencoded
     body:
-      storage: "{{ item.nfs_storage }}"
-      type: "nfs"
-      server: "{{ item.nfs_ip }}"
-      export: "{{ item.nfs_path }}"
-      content: "{{ item.nfs_content }}"
+      search: "{{ dns_searchdomain }}"
+      dns1: "{{ dns1 }}"
+      dns2: "{{ dns2 }}"
     validate_certs: false
-  loop: "{{ nfs_servers }}"
-  register: create_nfs_results
+  register: create_dns_results
   ignore_errors: true
-  no_log: true
-
-- name: 
-  set_fact:
-    pve_response: "{{ create_nfs_results.results | map(attribute='msg') | list }}"
-    success_status: "{{ create_nfs_results.results | map(attribute='failed') | list }}"
-
-- name: Show NFS Result Message
-  debug:
-    var: pve_response
