@@ -63,5 +63,6 @@
   roles:
   - storage-mount-nfs
   - dockarr
+  - calibre
   tags:
   -  dockarr

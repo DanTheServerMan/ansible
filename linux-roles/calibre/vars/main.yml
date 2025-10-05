@@ -1,0 +1,42 @@
+
+# Docker containers
+cwab:
+  - name: calibre-web-ansible
+    image: crocodilestick/calibre-web-automated:latest
+    state: started
+    pull: true
+    volume:
+    - '{{ dockarr_container_config_directory }}/calibre/config:/config'
+    - '{{ dockarr_container_data_directory }}/calibre/ingest:/cwa-book-ingest'
+    - '{{ dockarr_container_data_directory }}/calibre/library:/calibre-library'
+    - '{{ dockarr_container_data_directory }}/calibre/plugins:/config/.config/calibre/plugins'
+    published_ports:
+      - "8083:8083"
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Etc/UTC"
+      CWA_PORT_OVERRIDE: "8083"
+    restart_policy: unless-stopped
+
+cwabd:
+  - name: calibre-downloader-ansible
+    image: ghcr.io/calibrain/calibre-web-automated-book-downloader:latest
+    state: started
+    pull: true
+    volume:
+    - '{{ dockarr_container_data_directory }}/calibre/ingest:/cwa-book-ingest'
+    published_ports:
+      - "8084:8084"
+    env:
+      FLASK_PORT: "8084"
+      LOG_LEVEL: "info"
+      BOOK_LANGUAGE: "en"
+      USE_BOOK_TITLE: "true"
+      TZ: "Etc/UTC"
+      APP_ENV: "prod"
+      UID: "1000"
+      GID: "100"
+      MAX_CONCURRENT_DOWNLOADS: "3"
+      DOWNLOAD_PROGRESS_UPDATE_INTERVAL: "5"
+    restart_policy: unless-stopped
