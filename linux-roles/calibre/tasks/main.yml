@@ -1,0 +1,28 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for calibre
+- name: Creating Calibre-Web-Automated container
+  community.docker.docker_container:
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    state: '{{ item.state }}'
+    published_ports: '{{ item.published_ports }}'
+    volumes: '{{ item.volume }}'
+    env: '{{ item.env }}'
+    pull: '{{ item.pull }}'
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ cwab }}"
+
+- name: Creating Calibre-Web Automated Book Downloader container
+  community.docker.docker_container:
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    state: '{{ item.state }}'
+    published_ports: '{{ item.published_ports }}'
+    volumes: '{{ item.volume }}'
+    env: '{{ item.env }}'
+    pull: '{{ item.pull }}'
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ cwabd }}"
+
+
