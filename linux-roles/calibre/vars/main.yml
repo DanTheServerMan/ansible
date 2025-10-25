@@ -8,7 +8,7 @@ cwab:
     volume:
     - '{{ dockarr_container_config_directory }}/calibre/config:/config'
     - '{{ dockarr_container_data_directory }}/calibre/ingest:/cwa-book-ingest'
-    - '{{ dockarr_container_data_directory }}/calibre/library:/calibre-library'
+    - '{{ dockarr_container_config_directory }}/calibre/library:/calibre-library'
     - '{{ dockarr_container_data_directory }}/calibre/plugins:/config/.config/calibre/plugins'
     published_ports:
       - "8083:8083"
