@@ -19,9 +19,9 @@
    - vault/vault
   become: true
   roles:
+  - system-install-packages
   - system-users
   - system-motd
-  - system-install-packages
   - system-ufw
   - storage-mount-nfs
   tags:

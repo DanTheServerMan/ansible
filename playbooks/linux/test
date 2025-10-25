@@ -1,0 +1,26 @@
+# Add specific host-only groups
+[homelab]
+192.168.1.220
+
+# Host-only groups
+[docker]
+192.168.1.220
+
+[dockarr]
+192.168.1.220
+# Services-only groups
+[nginx]
+192.168.1.220
+
+[minecraft]
+192.168.1.220
+
+[pi]
+192.168.1.220
+[nfs_server]
+
+
+
+
+
+
