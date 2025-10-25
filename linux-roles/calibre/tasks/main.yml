@@ -24,5 +24,3 @@
     pull: '{{ item.pull }}'
     restart_policy: '{{ item.restart_policy }}'
   loop: "{{ cwabd }}"
-
-
