@@ -1,6 +1,6 @@
 minecraft:
   - name: minecraft-ansible
-    image: "itzg/minecraft-server:latest"
+    image: "itzg/minecraft-server"
     state: started
     recreate: true
     pull: yes

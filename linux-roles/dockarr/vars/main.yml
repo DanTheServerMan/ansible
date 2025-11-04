@@ -94,3 +94,19 @@ jellyfin:
       PGID: "1000"
       TZ: "Etc/UTC"
     restart_policy: unless-stopped
+
+seerr:
+  - name: seerr-ansible
+    image: ghcr.io/fallenbagel/jellyseerr:latest
+    state: started
+    pull: true
+    volume:
+    - '{{ dockarr_container_config_directory }}/seerr:/app/config'
+    published_ports:
+      - "5055:5055"
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Etc/UTC"
+      LOG_LEVEL: "debug"
+    restart_policy: unless-stopped

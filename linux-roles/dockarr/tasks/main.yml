@@ -71,3 +71,15 @@
     pull: '{{ item.pull }}'
     restart_policy: '{{ item.restart_policy }}'
   loop: "{{ jellyfin }}"
+
+- name: Creating seerr container
+  community.docker.docker_container:
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    state: '{{ item.state }}'
+    published_ports: '{{ item.published_ports }}'
+    volumes: '{{ item.volume }}'
+    env: '{{ item.env }}'
+    pull: '{{ item.pull }}'
+    restart_policy: '{{ item.restart_policy }}'
+  loop: "{{ seerr }}"
